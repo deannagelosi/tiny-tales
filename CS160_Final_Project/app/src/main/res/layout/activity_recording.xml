@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RecordingActivity">
+
+    <ImageView
+        android:id="@+id/homeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="30dp"
+        app:srcCompat="@drawable/home_icon" />
+
+    <ImageView
+        android:id="@+id/swipeInfoMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="51dp"
+        android:layout_marginEnd="16dp"
+        android:visibility="gone"
+        app:srcCompat="@drawable/swipe_to_turn" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <ImageView
+            android:id="@+id/currentlyDisplayedImg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/big_filler_image_1" />
+
+        <LinearLayout
+            android:id="@+id/statusBars"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/statusBar1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/status_tabs" />
+
+            <ImageView
+                android:id="@+id/statusBar2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/status_tabs" />
+
+            <ImageView
+                android:id="@+id/statusBar3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/status_tabs" />
+
+            <ImageView
+                android:id="@+id/statusBar4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/status_tabs" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="89dp"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/footer_bar"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp">
+
+        <ImageView
+            android:id="@+id/startRecordingButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/record_button" />
+
+        <ImageView
+            android:id="@+id/stopRecordingButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="gone"
+            app:srcCompat="@drawable/stop_button" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/homePopup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="46dp"
+        android:layout_marginEnd="46dp"
+        android:background="@drawable/popup_background"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/confirm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="13dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/checkmark" />
+
+        <ImageView
+            android:id="@+id/cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="13dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/cancel" />
+    </LinearLayout>
+</RelativeLayout>

@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/create-title"
+        android:id="@+id/createTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
@@ -18,8 +18,8 @@
         android:textSize="64sp" />
 
     <TableLayout
-        android:id="@+id/choices-grid"
-        android:layout_width="match_parent"
+        android:id="@+id/choicesGrid"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center">
@@ -30,7 +30,7 @@
             android:gravity="center_horizontal">
 
             <FrameLayout
-                android:id="@+id/top-left-choice"
+                android:id="@+id/topLeftChoice"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="5dp"
@@ -44,15 +44,15 @@
                     app:cardCornerRadius="18dp">
 
                     <ImageView
-                        android:id="@+id/top-left-image"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/topLeftImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         app:srcCompat="@drawable/filler_image_1" />
                 </androidx.cardview.widget.CardView>
             </FrameLayout>
 
             <FrameLayout
-                android:id="@+id/top-right-choice"
+                android:id="@+id/topRightChoice"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="5dp"
@@ -66,9 +66,9 @@
                     app:cardCornerRadius="18dp">
 
                     <ImageView
-                        android:id="@+id/top-right-image"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/topRightImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         app:srcCompat="@drawable/filler_image_2" />
                 </androidx.cardview.widget.CardView>
             </FrameLayout>
@@ -80,7 +80,7 @@
             android:gravity="center_horizontal">
 
             <FrameLayout
-                android:id="@+id/bottom-left-choice"
+                android:id="@+id/bottomLeftChoice"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginTop="5dp"
@@ -94,15 +94,15 @@
                     app:cardCornerRadius="18dp">
 
                     <ImageView
-                        android:id="@+id/bottom-left-image"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/bottomLeftImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         app:srcCompat="@drawable/filler_image_3" />
                 </androidx.cardview.widget.CardView>
             </FrameLayout>
 
             <FrameLayout
-                android:id="@+id/bottom-right-choice"
+                android:id="@+id/bottomRightChoice"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="5dp"
@@ -117,8 +117,8 @@
 
                     <ImageView
                         android:id="@+id/magic-wand-pic"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         app:srcCompat="@drawable/magic_wand" />
                 </androidx.cardview.widget.CardView>
             </FrameLayout>
@@ -139,14 +139,14 @@
         android:paddingEnd="30dp">
 
         <ImageView
-            android:id="@+id/selected-book-tab"
+            android:id="@+id/selectedBookTab"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:srcCompat="@drawable/selected_book_icon" />
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/unselectedEarTab"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
