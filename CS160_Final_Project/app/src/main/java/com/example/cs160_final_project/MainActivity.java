@@ -107,23 +107,25 @@ public class MainActivity extends AppCompatActivity {
 
         listenTab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //TODO: need to discuss what to do about this
+                //TODO: 
             }
         });
     }
 }
 
 //Frontend Meeting topics:
-//1. Should we make Create and Listen the same or different pages
-    //Also since we're not saving in the app, should we even have a listen tab? It might be
-    //confusing if the videos disappear from the tab when users close the app.
-//2. Should we still have a pause button/restart option since we're screen-recording continuously?
-//3. Footer tab icons, difference not very noticeable when selected/unselected
-//4. I've been exporting the square buttons from figma, should we create a drawable instead?
+//1. Should we still have a pause button/restart option since we're screen-recording continuously?
+//2. Footer tab icons, difference not very noticeable when selected/unselected
+//3. I've been exporting the square buttons from figma, should we create a drawable instead?
 
 //Frontend tasks to do:
-//1. Swiping
+//1. Swiping to change image pages
 //2. Recording time counter/(Start recording?)
-//3. The End Page and Type Name and Title Page
+//3. The End Page & Type Name and Title Page
+    //Remove audio recording the title
+    //Make default the date
+    //Optional to type in title
+    //Maybe change "title" to "what story is this"
 //4. Listen Page
 //5. Create status bar drawable and implement the different colors per page/find way to track page?
+//6. New icons, possibly paper airplane for share
