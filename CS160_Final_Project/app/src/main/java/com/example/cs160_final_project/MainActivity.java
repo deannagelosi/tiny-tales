@@ -124,9 +124,6 @@ public class MainActivity extends Activity {
 //      at the top already and Janaki commented that the splash could probably be timed. For the
 //      onboarding page, I added "tap to continue" at the bottom, I also changed some of the wording.
 
-//2. Footer tab icons, difference not very noticeable when selected/unselected
-//3. I've been exporting the square buttons from figma, should we create a drawable instead?
-
 //Frontend tasks to do:
 //1. Swiping to change image pages
 //2. Recording time counter/(Start recording?)
