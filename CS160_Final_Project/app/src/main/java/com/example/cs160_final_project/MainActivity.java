@@ -1,26 +1,25 @@
 package com.example.cs160_final_project;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import java.io.ByteArrayOutputStream;
-import java.util.HashSet;
+import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
+
+    private ImageView addPhotosButton;
 
     //the 4 picture choice buttons
-    private FrameLayout topLeftChoice;
-    private FrameLayout topRightChoice;
-    private FrameLayout bottomLeftChoice;
-    private FrameLayout bottomRightChoice;
+    private CardView topLeftChoice;
+    private CardView topRightChoice;
+    private CardView bottomLeftChoice;
+    private CardView bottomRightChoice;
 
     //the 3 choice images that change
     private ImageView topLeftImage;
@@ -31,13 +30,15 @@ public class MainActivity extends AppCompatActivity {
     private ImageView createTab;
     private ImageView listenTab;
 
-    //To store our 4 generated story pictures
-    HashSet<Drawable> storyImageSet;
+    //To store our 4 generated story pictures used in recording
+    public static ArrayList<Integer> storyImageSet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        addPhotosButton = findViewById(R.id.addPhotoButton);
 
         topLeftChoice = findViewById(R.id.topLeftChoice);
         topRightChoice = findViewById(R.id.topRightChoice);
@@ -48,26 +49,32 @@ public class MainActivity extends AppCompatActivity {
         topRightImage = findViewById(R.id.topRightImage);
         bottomLeftImage = findViewById(R.id.bottomLeftImage);
 
-        createTab = findViewById(R.id.selectedBookTab);
-        listenTab = findViewById(R.id.unselectedEarTab);
+        createTab = findViewById(R.id.createTab);
+        listenTab = findViewById(R.id.listenTab);
 
-        storyImageSet = new HashSet<Drawable>();
+        storyImageSet = new ArrayList<Integer>();
 
-        //TODO: Set the first 3 images
+        //TODO: Set the first 3 images's drawable resource tag and save them
+        //temporarily using the filler images
+        topLeftImage.setTag(R.drawable.filler_image_1);
+        topRightImage.setTag(R.drawable.filler_image_2);
+        bottomLeftImage.setTag(R.drawable.filler_image_3);
+
+        addPhotosButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //TODO: open up camera row select and import pictures
+            }
+        });
 
         //On click functions for 4 choices
         topLeftChoice.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                storyImageSet.add(topLeftImage.getDrawable());
+                storyImageSet.clear();
+                //getTag gets the resourceID, so we can use Picasso
+                storyImageSet.add((Integer) topLeftImage.getTag());
                 //TODO: generate the next 3 story images and place in hashmap
                 Intent intent = new Intent(MainActivity.this, RecordingActivity.class);
-                //intent.putExtra( "imageSet", storyImageSet);
-
                 //TODO:figure out how to pass drawable, possible way using bitmap
-//                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), topLeftImage.getDraw);
-//                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//                bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-//                byte[] b = baos.toByteArray();
                 intent.putExtra("temp_img", topLeftImage.getId());
                 startActivity(intent);
             }
@@ -75,35 +82,33 @@ public class MainActivity extends AppCompatActivity {
 
         topRightChoice.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                storyImageSet.add(topRightImage.getDrawable());
+                storyImageSet.clear();
+                storyImageSet.add((Integer) topRightImage.getTag());
                 //TODO: generate the next 3 story images and place in hashmap
                 Intent intent = new Intent(MainActivity.this, RecordingActivity.class);
-                //intent.putExtra( "imageSet", storyImageSet);
-                //TODO:figure out how to pass drawable, possible way using bitmap
                 startActivity(intent);
             }
         });
 
         bottomLeftChoice.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                storyImageSet.add(bottomLeftImage.getDrawable());
+                storyImageSet.clear();
+                storyImageSet.add((Integer) bottomLeftImage.getTag());
                 //TODO: generate the next 3 story images and place in hashmap
                 Intent intent = new Intent(MainActivity.this, RecordingActivity.class);
-                //intent.putExtra( "imageSet", storyImageSet);
-                //TODO:figure out how to pass drawable, possible way using bitmap
                 startActivity(intent);
             }
         });
 
         bottomRightChoice.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //TODO: allow user to choose own 4 images, place these in hashmap
+                storyImageSet.clear();
+                //TODO: generate 4 random images, place these in hashmap
                 Intent intent = new Intent(MainActivity.this, RecordingActivity.class);
-                //intent.putExtra( "imageSet", storyImageSet);
-                //TODO:figure out how to pass drawable, possible way using bitmap
                 startActivity(intent);
             }
         });
+
 
         listenTab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -113,19 +118,20 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 
-//Frontend Meeting topics:
-//1. Should we still have a pause button/restart option since we're screen-recording continuously?
+//Frontend Discussion:
+//1. I made some UI changes in figma
+//      I took out the arrows on the splash and onboarding because I thought it was really crowded
+//      at the top already and Janaki commented that the splash could probably be timed. For the
+//      onboarding page, I added "tap to continue" at the bottom, I also changed some of the wording.
+
 //2. Footer tab icons, difference not very noticeable when selected/unselected
 //3. I've been exporting the square buttons from figma, should we create a drawable instead?
 
 //Frontend tasks to do:
 //1. Swiping to change image pages
 //2. Recording time counter/(Start recording?)
-//3. The End Page & Type Name and Title Page
-    //Remove audio recording the title
-    //Make default the date
-    //Optional to type in title
-    //Maybe change "title" to "what story is this"
-//4. Listen Page
-//5. Create status bar drawable and implement the different colors per page/find way to track page?
-//6. New icons, possibly paper airplane for share
+//3. Make save popup (should be similar to home popup)
+//4. Make title page
+//4. Make Listen Page
+//5. Splash Page
+//6. Onboarding page
