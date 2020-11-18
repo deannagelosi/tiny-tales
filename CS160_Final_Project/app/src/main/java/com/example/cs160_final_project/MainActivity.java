@@ -7,12 +7,18 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Set;
+
+import static android.util.Log.VERBOSE;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,17 +40,30 @@ public class MainActivity extends AppCompatActivity {
     //To store our 4 generated story pictures
     HashSet<Drawable> storyImageSet;
 
+    //where the images and labels will be stored
+    public ArrayList<Bitmap> pictures = new ArrayList<>();
+    public ArrayList<Set> labels = new ArrayList<>();
+    public ArrayList<Integer> duplicates = new ArrayList<>();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        SetupStock();
+        Tools.Generatestories(duplicates,pictures,labels);
+        //Log.println(VERBOSE, null, "here are the list of pictures ind " + duplicates.toString());
+
         topLeftChoice = findViewById(R.id.topLeftChoice);
         topRightChoice = findViewById(R.id.topRightChoice);
         bottomLeftChoice = findViewById(R.id.bottomLeftChoice);
         bottomRightChoice = findViewById(R.id.bottomRightChoice);
-
         topLeftImage = findViewById(R.id.topLeftImage);
+//        code to change img views from bitmap
+//        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.candy);
+//        topLeftImage.setImageBitmap(Bitmap.createScaledBitmap(bm, 139, 139, false));
+
         topRightImage = findViewById(R.id.topRightImage);
         bottomLeftImage = findViewById(R.id.bottomLeftImage);
 
@@ -111,6 +130,59 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void SetupStock() {
+        Bitmap bm;
+        Set<String> label;
+        bm = BitmapFactory.decodeResource(getResources(), R.drawable.candy);
+        label = new HashSet<>();
+        label.add("Food");
+        label.add("Candy");
+        labels.add(label);
+        pictures.add(bm);
+
+        bm = BitmapFactory.decodeResource(getResources(), R.drawable.lion);
+        label.add("Facial Expression");
+        label.add("Wildlife");
+        label.add("Lion");
+        label.add("Felidae");
+        label.add("Carnivore");
+        label.add("Big Cats");
+        label.add("Snout");
+        label.add("Fun");
+        label.add("Roar");
+        label.add("Adaptation");
+        label.add("Masai Lion");
+        label.add("Fawn");
+        label.add("Happy");
+        label.add("Yawn");
+        label.add("Hug");
+        label.add("Laugh");
+        labels.add(label);
+        pictures.add(bm);
+
+        bm = BitmapFactory.decodeResource(getResources(), R.drawable.duck);
+        label.add("Duck");
+        label.add("Bird");
+        labels.add(label);
+        pictures.add(bm);
+
+        bm = BitmapFactory.decodeResource(getResources(), R.drawable.frog);
+        label.add("Butterfly");
+        label.add("Animal");
+        label.add("Frog");
+        labels.add(label);
+        pictures.add(bm);
+
+        bm = BitmapFactory.decodeResource(getResources(), R.drawable.snow);
+        label.add("Food");
+        label.add("Candy");
+        label.add("Butterfly");
+        label.add("Animal");
+        label.add("Frog");
+        labels.add(label);
+        pictures.add(bm);
+    }
 }
 
 //Frontend Meeting topics:
@@ -129,3 +201,4 @@ public class MainActivity extends AppCompatActivity {
 //4. Listen Page
 //5. Create status bar drawable and implement the different colors per page/find way to track page?
 //6. New icons, possibly paper airplane for share
+
