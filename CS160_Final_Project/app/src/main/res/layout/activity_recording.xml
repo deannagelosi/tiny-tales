@@ -36,7 +36,7 @@
             android:id="@+id/currentlyDisplayedImg"
             android:layout_width="380dp"
             android:layout_height="380dp"
-            android:src="@drawable/big_filler_image_1" />
+            android:src="@drawable/story_filler_1" />
 
         <LinearLayout
             android:id="@+id/statusBars"

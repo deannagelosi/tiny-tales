@@ -30,8 +30,14 @@ public class MainActivity extends Activity {
     private ImageView createTab;
     private ImageView listenTab;
 
-    //To store our 4 generated story pictures used in recording
-    public static ArrayList<Integer> storyImageSet;
+    //To store our 4 arraylists filled with the corresponding story pictures used in recording
+    public static ArrayList<ArrayList<Integer>> allStoriesList;
+
+    //individual story arraylists
+    private ArrayList<Integer> topLeftStoryList;
+    private ArrayList<Integer> topRightStoryList;
+    private ArrayList<Integer> bottomLeftStoryList;
+    private ArrayList<Integer> bottomRightStoryList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +58,26 @@ public class MainActivity extends Activity {
         createTab = findViewById(R.id.createTab);
         listenTab = findViewById(R.id.listenTab);
 
-        storyImageSet = new ArrayList<Integer>();
+        allStoriesList = new ArrayList<ArrayList<Integer>>();
 
-        //TODO: Set the first 3 images's drawable resource tag and save them
-        //temporarily using the filler images
-        topLeftImage.setTag(R.drawable.filler_image_1);
-        topRightImage.setTag(R.drawable.filler_image_2);
-        bottomLeftImage.setTag(R.drawable.filler_image_3);
+        topLeftStoryList = new ArrayList<Integer>();
+        topRightStoryList = new ArrayList<Integer>();
+        bottomLeftStoryList = new ArrayList<Integer>();
+        bottomRightStoryList = new ArrayList<Integer>();
+
+        allStoriesList.add(topLeftStoryList);
+        allStoriesList.add(topRightStoryList);
+        allStoriesList.add(bottomLeftStoryList);
+        allStoriesList.add(bottomRightStoryList);
+
+        //TODO: Generate all 4 stories, set tag, and add to arraylist
+        //temporarily hardcoding in the top left story
+        allStoriesList.get(0).add(R.drawable.story_filler_1);
+        allStoriesList.get(0).add(R.drawable.story_filler_2);
+        allStoriesList.get(0).add(R.drawable.story_filler_3);
+        allStoriesList.get(0).add(R.drawable.story_filler_4);
+
+        //TODO: Display the first 3 images's
 
         addPhotosButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -69,44 +88,31 @@ public class MainActivity extends Activity {
         //On click functions for 4 choices
         topLeftChoice.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                storyImageSet.clear();
-                //getTag gets the resourceID, so we can use Picasso
-                storyImageSet.add((Integer) topLeftImage.getTag());
-                //TODO: generate the next 3 story images and place in hashmap
                 Intent intent = new Intent(MainActivity.this, RecordingActivity.class);
-                //TODO:figure out how to pass drawable, possible way using bitmap
-                intent.putExtra("temp_img", topLeftImage.getId());
+                intent.putExtra("story-index", 0);
                 startActivity(intent);
             }
         });
 
         topRightChoice.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                storyImageSet.clear();
-                storyImageSet.add((Integer) topRightImage.getTag());
-                //TODO: generate the next 3 story images and place in hashmap
                 Intent intent = new Intent(MainActivity.this, RecordingActivity.class);
-                startActivity(intent);
-            }
+                intent.putExtra("story-index", 1);
+                startActivity(intent);            }
         });
 
         bottomLeftChoice.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                storyImageSet.clear();
-                storyImageSet.add((Integer) bottomLeftImage.getTag());
-                //TODO: generate the next 3 story images and place in hashmap
                 Intent intent = new Intent(MainActivity.this, RecordingActivity.class);
-                startActivity(intent);
-            }
+                intent.putExtra("story-index", 2);
+                startActivity(intent);            }
         });
 
         bottomRightChoice.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                storyImageSet.clear();
-                //TODO: generate 4 random images, place these in hashmap
                 Intent intent = new Intent(MainActivity.this, RecordingActivity.class);
-                startActivity(intent);
-            }
+                intent.putExtra("story-index", 3);
+                startActivity(intent);            }
         });
 
 

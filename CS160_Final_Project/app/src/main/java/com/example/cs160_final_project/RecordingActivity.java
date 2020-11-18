@@ -1,15 +1,13 @@
 package com.example.cs160_final_project;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
 import androidx.cardview.widget.CardView;
-
 import java.util.ArrayList;
 import com.squareup.picasso.Picasso;
 
@@ -34,7 +32,9 @@ public class RecordingActivity extends Activity {
     private ImageView startRecordingButton;
     private ImageView stopRecordingButton;
 
-    boolean firstTime = true;
+    private boolean recordingStarted = false;
+
+    private int pageIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +59,7 @@ public class RecordingActivity extends Activity {
         stopRecordingButton = findViewById(R.id.stopRecordingButton);
 
         Intent intent = getIntent();
-        imageSet = MainActivity.storyImageSet;
-//        currentlyDisplayedImg.setBackground(imageSet.get(0));
+        imageSet = MainActivity.allStoriesList.get(intent.getIntExtra("story-index", 0));
         Picasso.get().load(imageSet.get(0)).fit()
                 .centerCrop().into(currentlyDisplayedImg);
 
@@ -70,17 +69,50 @@ public class RecordingActivity extends Activity {
                 stopRecordingButton.setVisibility(View.VISIBLE);
                 statusBar1.setImageResource(R.drawable.page_started_tab);
                 //TODO: start recording
-
-                //first time around show swipe message
-                if(firstTime) {
-                    swipeInfoMessage.setVisibility(View.VISIBLE);
-                    firstTime = false;
-                } else {
-                    swipeInfoMessage.setVisibility(View.GONE);
-                }
+                recordingStarted = true;
+                swipeInfoMessage.setVisibility(View.VISIBLE);
             }
         });
 
+        currentlyDisplayedImg.setOnTouchListener(new OnSwipeTouchListener(RecordingActivity.this) {
+            //turn page forward
+            @SuppressLint("ClickableViewAccessibility")
+            public void onSwipeLeft() {
+                if (pageIndex < 3 && recordingStarted) {
+                    pageIndex++;
+                    Picasso.get().load(imageSet.get(pageIndex)).fit()
+                            .centerCrop().into(currentlyDisplayedImg);
+                    //gross code i know, but probably implementing it with viewpager this is just temporary
+                    if (pageIndex == 1) {
+                        swipeInfoMessage.setVisibility(View.GONE);
+                        statusBar2.setImageResource(R.drawable.page_started_tab);
+                    } else if (pageIndex == 2) {
+                        statusBar3.setImageResource(R.drawable.page_started_tab);
+                    }
+                    else {
+                        statusBar4.setImageResource(R.drawable.page_started_tab);
+                    }
+                }
+            }
+            //turn page backward
+            public void onSwipeRight() {
+                if (pageIndex > 0) {
+                    pageIndex--;
+                    Picasso.get().load(imageSet.get(pageIndex)).fit()
+                            .centerCrop().into(currentlyDisplayedImg);
+                    if (pageIndex == 0) {
+                        swipeInfoMessage.setVisibility(View.GONE);
+                        statusBar2.setImageResource(R.drawable.status_tabs);
+                    } else if (pageIndex == 1) {
+                        statusBar3.setImageResource(R.drawable.status_tabs);
+                    }
+                    else {
+                        statusBar4.setImageResource(R.drawable.status_tabs);
+                    }
+                }
+            }
+
+        });
         stopRecordingButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //TODO: stop recording
