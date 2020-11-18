@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import androidx.cardview.widget.CardView;
 import java.util.ArrayList;
 import com.squareup.picasso.Picasso;
@@ -16,9 +19,10 @@ public class RecordingActivity extends Activity {
     public static ArrayList<Integer> imageSet;
 
     private ImageView homeButton;
-    private LinearLayout homeButtonConfirmationPopup;
-    private CardView homeButtonConfirm;
-    private CardView homeButtonCancel;
+    private RelativeLayout popup;
+    private TextView saveText;
+    private CardView confirmButton;
+    private CardView cancelButton;
 
     private ImageView currentlyDisplayedImg;
 
@@ -29,8 +33,11 @@ public class RecordingActivity extends Activity {
     private ImageView statusBar3;
     private ImageView statusBar4;
 
+    private LinearLayout footer;
     private ImageView startRecordingButton;
     private ImageView stopRecordingButton;
+
+    private TextView theEndText;
 
     private boolean recordingStarted = false;
 
@@ -42,9 +49,10 @@ public class RecordingActivity extends Activity {
         setContentView(R.layout.activity_recording);
 
         homeButton = findViewById(R.id.homeButton);
-        homeButtonConfirmationPopup = findViewById(R.id.homePopup);
-        homeButtonConfirm = findViewById(R.id.confirm);
-        homeButtonCancel = findViewById(R.id.cancel);
+        popup = findViewById(R.id.popup);
+        saveText = findViewById(R.id.saveTextView);
+        confirmButton = findViewById(R.id.confirm);
+        cancelButton = findViewById(R.id.cancel);
 
         currentlyDisplayedImg = findViewById(R.id.currentlyDisplayedImg);
 
@@ -55,8 +63,11 @@ public class RecordingActivity extends Activity {
         statusBar3 = findViewById(R.id.statusBar3);
         statusBar4 = findViewById(R.id.statusBar4);
 
+        footer = findViewById(R.id.footer);
         startRecordingButton = findViewById(R.id.startRecordingButton);
         stopRecordingButton = findViewById(R.id.stopRecordingButton);
+
+        theEndText = findViewById(R.id.theEndTextView);
 
         Intent intent = getIntent();
         imageSet = MainActivity.allStoriesList.get(intent.getIntExtra("story-index", 0));
@@ -65,6 +76,7 @@ public class RecordingActivity extends Activity {
 
         startRecordingButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                currentlyDisplayedImg.setAlpha((float) 1.0);
                 startRecordingButton.setVisibility(View.GONE);
                 stopRecordingButton.setVisibility(View.VISIBLE);
                 statusBar1.setImageResource(R.drawable.page_started_tab);
@@ -89,8 +101,9 @@ public class RecordingActivity extends Activity {
                     } else if (pageIndex == 2) {
                         statusBar3.setImageResource(R.drawable.page_started_tab);
                     }
-                    else {
+                    else if (pageIndex == 3){
                         statusBar4.setImageResource(R.drawable.page_started_tab);
+                        theEndText.setVisibility(View.VISIBLE);
                     }
                 }
             }
@@ -106,8 +119,9 @@ public class RecordingActivity extends Activity {
                     } else if (pageIndex == 1) {
                         statusBar3.setImageResource(R.drawable.status_tabs);
                     }
-                    else {
+                    else if (pageIndex == 2){
                         statusBar4.setImageResource(R.drawable.status_tabs);
+                        theEndText.setVisibility(View.GONE);
                     }
                 }
             }
@@ -116,27 +130,70 @@ public class RecordingActivity extends Activity {
         stopRecordingButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //TODO: stop recording
-                //TODO: save options
+                popup.setVisibility(View.VISIBLE);
+                saveText.setVisibility(View.VISIBLE);
+                homeButton.setAlpha((float) .5);
+                currentlyDisplayedImg.setAlpha((float) .5);
+                statusBar1.setAlpha((float) .5);
+                statusBar2.setAlpha((float) .5);
+                statusBar3.setAlpha((float) .5);
+                statusBar4.setAlpha((float) .5);
+                footer.setAlpha((float) .5);
+                confirmButton.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        //TODO: stop recording/save recording
+                        //TODO: show title popup
+                    }
+                });
+                cancelButton.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        popup.setVisibility(View.GONE);
+                        saveText.setVisibility(View.GONE);
+                        homeButton.setAlpha((float) 1.0);
+                        currentlyDisplayedImg.setAlpha((float) 1.0);
+                        statusBar1.setAlpha((float) 1.0);
+                        statusBar2.setAlpha((float) 1.0);
+                        statusBar3.setAlpha((float) 1.0);
+                        statusBar4.setAlpha((float) 1.0);
+                        footer.setAlpha((float) 1.0);
+                    }
+                });
             }
         });
 
         homeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                homeButtonConfirmationPopup.setVisibility(View.VISIBLE);
-
-                homeButtonConfirm.setOnClickListener(new View.OnClickListener() {
+                popup.setVisibility(View.VISIBLE);
+                homeButton.setAlpha((float) .5);
+                currentlyDisplayedImg.setAlpha((float) .5);
+                statusBar1.setAlpha((float) .5);
+                statusBar2.setAlpha((float) .5);
+                statusBar3.setAlpha((float) .5);
+                statusBar4.setAlpha((float) .5);
+                footer.setAlpha((float) .5);
+                confirmButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         //TODO: stop recording/discard
                         Intent intent = new Intent(RecordingActivity.this, MainActivity.class);
                         startActivity(intent);
                     }
                 });
-                homeButtonCancel.setOnClickListener(new View.OnClickListener() {
+                cancelButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        homeButtonConfirmationPopup.setVisibility(View.GONE);
+                        popup.setVisibility(View.GONE);
+                        homeButton.setAlpha((float) 1.0);
+                        statusBar1.setAlpha((float) 1.0);
+                        statusBar2.setAlpha((float) 1.0);
+                        statusBar3.setAlpha((float) 1.0);
+                        statusBar4.setAlpha((float) 1.0);
+                        footer.setAlpha((float) 1.0);
+                        if (recordingStarted) {
+                            currentlyDisplayedImg.setAlpha((float) 1.0);
+                        }
                     }
                 });
             }
         });
+
     }
 }

@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">CS160_Final_Project</string>
     <string name="CREATE">create</string>
+    <string name="the_end">the end</string>
+    <string name="save">save?</string>
 </resources>

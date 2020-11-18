@@ -14,6 +14,8 @@ import java.util.ArrayList;
 public class MainActivity extends Activity {
 
     private ImageView addPhotosButton;
+    private ImageView refreshButton;
+    private ImageView infoButton;
 
     //the 4 picture choice buttons
     private CardView topLeftChoice;
@@ -45,6 +47,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         addPhotosButton = findViewById(R.id.addPhotoButton);
+        refreshButton = findViewById(R.id.refreshButton);
+        infoButton = findViewById(R.id.infoButton);
 
         topLeftChoice = findViewById(R.id.topLeftChoice);
         topRightChoice = findViewById(R.id.topRightChoice);
@@ -70,7 +74,7 @@ public class MainActivity extends Activity {
         allStoriesList.add(bottomLeftStoryList);
         allStoriesList.add(bottomRightStoryList);
 
-        //TODO: Generate all 4 stories, set tag, and add to arraylist
+        //TODO: Generate all 4 stories, set tag, and add to arraylist, probably make this a function
         //temporarily hardcoding in the top left story
         allStoriesList.get(0).add(R.drawable.story_filler_1);
         allStoriesList.get(0).add(R.drawable.story_filler_2);
@@ -82,6 +86,18 @@ public class MainActivity extends Activity {
         addPhotosButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //TODO: open up camera row select and import pictures
+            }
+        });
+
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //TODO: refresh 3 visible images
+            }
+        });
+
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //TODO: show onboarding page
             }
         });
 
@@ -124,17 +140,10 @@ public class MainActivity extends Activity {
     }
 }
 
-//Frontend Discussion:
-//1. I made some UI changes in figma
-//      I took out the arrows on the splash and onboarding because I thought it was really crowded
-//      at the top already and Janaki commented that the splash could probably be timed. For the
-//      onboarding page, I added "tap to continue" at the bottom, I also changed some of the wording.
-
 //Frontend tasks to do:
-//1. Swiping to change image pages
-//2. Recording time counter/(Start recording?)
-//3. Make save popup (should be similar to home popup)
-//4. Make title page
+//1. Using viewpager to have animated page swipes
+//2. Recording time counter
+//4. Make title popup
 //4. Make Listen Page
 //5. Splash Page
 //6. Onboarding page
