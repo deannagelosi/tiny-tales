@@ -141,9 +141,10 @@ public class MainActivity extends Activity {
 }
 
 //Frontend tasks to do:
+//1. Make title popup
+//2. Make Listen Page
+//3. Splash Page
+//4. Onboarding page
+// If we have timer
 //1. Using viewpager to have animated page swipes
-//2. Recording time counter
-//4. Make title popup
-//4. Make Listen Page
-//5. Splash Page
-//6. Onboarding page
+//2. Pause countdown timer when home/stop recording is pressed

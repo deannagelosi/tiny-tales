@@ -91,43 +91,58 @@
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/footer"
         android:layout_width="match_parent"
         android:layout_height="95dp"
         android:layout_alignParentEnd="false"
         android:layout_alignParentBottom="true"
         android:background="@drawable/footer_bar"
-        android:gravity="center"
-        android:orientation="horizontal"
         android:paddingStart="30dp"
         android:paddingEnd="30dp">
 
         <ImageView
             android:id="@+id/startRecordingButton"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
+            android:layout_centerInParent="true"
             android:src="@drawable/record_button" />
 
         <ImageView
             android:id="@+id/stopRecordingButton"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_centerInParent="true"
             android:src="@drawable/stop_button"
             android:visibility="gone" />
 
-    </LinearLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/record_time_background">
+
+            <TextView
+                android:id="@+id/stopwatchText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="25dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@string/_00_00" />
+        </RelativeLayout>
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/popup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_marginStart="46dp"
-        android:layout_marginEnd="46dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:background="@drawable/popup_background"
         android:orientation="vertical"
         android:visibility="gone">

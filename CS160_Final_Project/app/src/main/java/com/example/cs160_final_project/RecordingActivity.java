@@ -33,9 +33,10 @@ public class RecordingActivity extends Activity {
     private ImageView statusBar3;
     private ImageView statusBar4;
 
-    private LinearLayout footer;
+    private RelativeLayout footer;
     private ImageView startRecordingButton;
     private ImageView stopRecordingButton;
+    private TextView stopwatchText;
 
     private TextView theEndText;
 
@@ -66,8 +67,20 @@ public class RecordingActivity extends Activity {
         footer = findViewById(R.id.footer);
         startRecordingButton = findViewById(R.id.startRecordingButton);
         stopRecordingButton = findViewById(R.id.stopRecordingButton);
+        stopwatchText = findViewById(R.id.stopwatchText);
 
         theEndText = findViewById(R.id.theEndTextView);
+
+        final CountUpTimer timer = new CountUpTimer(3599000) {
+            public void onTick(int second) {
+                int min = 0;
+                if (second>59) {
+                    min = second / 60;
+                    second = second % 60;
+                }
+                stopwatchText.setText(String.format("%02d:%02d",min, second));
+            }
+        };
 
         Intent intent = getIntent();
         imageSet = MainActivity.allStoriesList.get(intent.getIntExtra("story-index", 0));
@@ -76,6 +89,7 @@ public class RecordingActivity extends Activity {
 
         startRecordingButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                timer.start();
                 currentlyDisplayedImg.setAlpha((float) 1.0);
                 startRecordingButton.setVisibility(View.GONE);
                 stopRecordingButton.setVisibility(View.VISIBLE);
@@ -141,6 +155,7 @@ public class RecordingActivity extends Activity {
                 footer.setAlpha((float) .5);
                 confirmButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
+                        timer.start();
                         //TODO: stop recording/save recording
                         //TODO: show title popup
                     }
