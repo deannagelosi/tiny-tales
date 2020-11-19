@@ -10,6 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".SplashScreen"></activity>
+        <activity android:name=".WaitActivity"></activity>
+        <activity android:name=".ListenActivity" />
         <activity android:name=".RecordingActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
