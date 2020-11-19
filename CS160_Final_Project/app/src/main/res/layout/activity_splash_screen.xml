@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SplashScreen">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="348dp"
+            android:layout_marginTop="66dp"
+            android:gravity="start">
+
+            <ImageView
+                android:layout_width="369dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="21dp"
+                android:background="@drawable/circle_background"
+                android:orientation="vertical">
+            </ImageView>
+
+            <ImageView
+                android:layout_width="303dp"
+                android:layout_height="110dp"
+                android:layout_marginTop="245dp"
+                android:layout_marginLeft="33dp"
+                android:src="@drawable/splash_screen_book" />
+
+            <ImageView
+                android:layout_width="202dp"
+                android:layout_height="270dp"
+                android:layout_marginTop="78dp"
+                android:layout_marginLeft="58dp"
+                android:src="@drawable/splash_screen_cat"/>
+            
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:layout_width="315dp"
+            android:layout_height="165dp"
+            android:layout_gravity="center"
+            android:gravity="start" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@string/tiny_tales"
+                android:textAlignment="center"
+                android:textColor="#393A3C"
+                android:textSize="64sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="85dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@string/subheading"
+                android:textAlignment="center"
+                android:textColor="#6A6B6D"
+                android:textSize="24sp" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>
