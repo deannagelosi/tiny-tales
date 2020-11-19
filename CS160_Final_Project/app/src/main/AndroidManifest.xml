@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".PlayRecording" />
+        <activity android:name=".PlayRecordingActivity" />
         <activity android:name=".RecordingActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

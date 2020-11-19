@@ -9,7 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.VideoView;
 
-public class PlayRecording extends AppCompatActivity {
+public class PlayRecordingActivity extends AppCompatActivity {
 
     private VideoView videoView;
     private String videoUrl = "";
