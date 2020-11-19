@@ -7,13 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import android.app.Activity;
-import android.content.Intent;
+
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
@@ -33,12 +29,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.display.DisplayManager;
 import android.hardware.display.VirtualDisplay;
-import android.media.AudioManager;
 import android.media.MediaRecorder;
 import android.media.projection.MediaProjection;
 import android.media.projection.MediaProjectionManager;
-import android.net.Uri;
-import android.os.Bundle;
 import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.util.SparseIntArray;
@@ -46,10 +39,9 @@ import android.view.Surface;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-import android.widget.ToggleButton;
-import android.widget.VideoView;
 
-public class RecordingActivity extends Activity {
+
+public class RecordingActivity extends AppCompatActivity {
 
     // Recording Permission's Constant
     private static final int REQUEST_CODE = 1000;
@@ -96,7 +88,6 @@ public class RecordingActivity extends Activity {
     private static final int DISPLAY_WIDTH = 720;
     private static final int DISPLAY_HEIGHT = 1280;
     private RelativeLayout rootLayout;
-    private VideoView videoView;
     private String videoUrl = "";
     private int recordingCounter = 0;
 
@@ -145,8 +136,6 @@ public class RecordingActivity extends Activity {
         mediaRecorder = new MediaRecorder();
         mediaProjectionManager = (MediaProjectionManager) getSystemService(Context.MEDIA_PROJECTION_SERVICE);
         rootLayout = findViewById(R.id.rootLayout);
-        videoView = findViewById(R.id.videoView);
-
 
         final CountUpTimer timer = new CountUpTimer(3599000) {
             public void onTick(int second) {
@@ -170,8 +159,7 @@ public class RecordingActivity extends Activity {
                 // Checking permissions to record audio and screen and write to storage
                 if (ContextCompat.checkSelfPermission(RecordingActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) +
                         ContextCompat.checkSelfPermission(RecordingActivity.this, Manifest.permission.RECORD_AUDIO)
-                        != PackageManager.PERMISSION_GRANTED)
-                {
+                        != PackageManager.PERMISSION_GRANTED) {
                     if (ActivityCompat.shouldShowRequestPermissionRationale(RecordingActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) ||
                             ActivityCompat.shouldShowRequestPermissionRationale(RecordingActivity.this, Manifest.permission.RECORD_AUDIO)) {
 
@@ -179,6 +167,7 @@ public class RecordingActivity extends Activity {
                                 .setAction("ENABLE", new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
+                                        recordingStarted = false;
                                         ActivityCompat.requestPermissions(RecordingActivity.this,
                                                 new String[] {
                                                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -254,6 +243,7 @@ public class RecordingActivity extends Activity {
         stopRecordingButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+
                 // Pause Recording
                 mediaRecorder.pause();
                 popup.setVisibility(View.VISIBLE);
@@ -272,8 +262,8 @@ public class RecordingActivity extends Activity {
                         // Stop Recording
                         stopRecording();
 
-                        // Play Recording
-                        playVideo();
+                        // Uncomment line below to play recording in another activity
+                        //playRecording();
 
                         //TODO: show title popup
                     }
@@ -295,6 +285,7 @@ public class RecordingActivity extends Activity {
 
                     }
                 });
+
             }
         });
 
@@ -350,15 +341,16 @@ public class RecordingActivity extends Activity {
 
             // Video's Path
             videoUrl = Environment.getExternalStorageDirectory().getAbsolutePath() //getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
-                        + new StringBuilder("/ScreenRecording-#" + recordingCounter + "-").append(new SimpleDateFormat("dd-MM-yyy-hh:mm")
+                        + new StringBuilder("/ScreenRecording-#" + recordingCounter + "-").append(new SimpleDateFormat("dd-MM-yyy-hh_mm_ss")
                             .format(new Date())).append(".mp4").toString();
 
-            mediaRecorder.setOutputFile(videoUrl);
             mediaRecorder.setVideoSize(DISPLAY_WIDTH, DISPLAY_HEIGHT);
             mediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H264);
             mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
             mediaRecorder.setVideoEncodingBitRate(512 * 1000);
             mediaRecorder.setVideoFrameRate(30);
+            mediaRecorder.setOutputFile(videoUrl);
+
 
             int rotation = getWindowManager().getDefaultDisplay().getRotation();
             int orientation =  ORIENTATION.get(rotation + 90);
@@ -382,9 +374,10 @@ public class RecordingActivity extends Activity {
 
     // Sets the dimensions and flags for the virtual device which is the object that will be recorded
     private VirtualDisplay createVirtualDisplay() {
-        return mediaProjection.createVirtualDisplay("MainActivity", DISPLAY_WIDTH, DISPLAY_HEIGHT,
-                screenDensity, DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR, mediaRecorder.getSurface(),
-                null, null);
+        return mediaProjection.createVirtualDisplay("RecordingActivity",
+                DISPLAY_WIDTH, DISPLAY_HEIGHT, screenDensity,
+                DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR,
+                mediaRecorder.getSurface(), null, null);
     }
 
     // Stops the media recorder and ends the recording
@@ -412,14 +405,13 @@ public class RecordingActivity extends Activity {
         }
     }
 
-    // Plays recording on the videoView object
-    private void playVideo() {
-        videoView.setVisibility(View.VISIBLE);
-        videoView.setVideoURI(Uri.parse(videoUrl));
-        AudioManager am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        am.setStreamVolume(AudioManager.STREAM_MUSIC,20, 0);
-        videoView.start();
+    // Used as a test to play the recording of the video in the PlayRecording Activity
+    private void playRecording() {
+        Intent intent = new Intent(RecordingActivity.this, PlayRecording.class);
+        intent.putExtra("path", videoUrl);
+        startActivity(intent);
     }
+
 
     private class MediaProjectionCallback extends MediaProjection.Callback {
 
@@ -428,6 +420,7 @@ public class RecordingActivity extends Activity {
             super.onStop();
 
             if (recordingStarted) {
+                recordingStarted = false;
                 mediaRecorder.stop();
                 mediaRecorder.release();
             }
@@ -435,7 +428,6 @@ public class RecordingActivity extends Activity {
             stopRecordScreen();
         }
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -447,6 +439,7 @@ public class RecordingActivity extends Activity {
                 if (grantResults.length > 0 && (grantResults[0] + grantResults[1] == PackageManager.PERMISSION_GRANTED)) {
                     record();
                 } else {
+                    recordingStarted = false;
                     Snackbar.make(rootLayout, "Permission", Snackbar.LENGTH_INDEFINITE)
                             .setAction("Enable", new View.OnClickListener() {
                                 @Override
