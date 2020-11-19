@@ -9,7 +9,7 @@ import android.os.Handler;
 public class WaitActivity extends AppCompatActivity {
 
     //duration of wait
-    private final int DISPLAY_LENGTH = 3000;
+    private final int DISPLAY_LENGTH = 2000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +20,7 @@ public class WaitActivity extends AppCompatActivity {
             @Override
             public void run() {
                 /* Create an Intent that will start the Menu-Activity. */
-                Intent mainIntent = new Intent(WaitActivity.this, MainActivity.class);
+                Intent mainIntent = new Intent(WaitActivity.this, LandingPageActivity.class);
                 startActivity(mainIntent);
                 finish();
             }

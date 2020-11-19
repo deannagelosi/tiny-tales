@@ -10,7 +10,6 @@ import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -95,7 +94,7 @@ public class RecordingActivity extends Activity {
         };
 
         Intent intent = getIntent();
-        imageSet = MainActivity.allStoriesList.get(intent.getIntExtra("story-index", 0));
+        imageSet = LandingPageActivity.allStoriesList.get(intent.getIntExtra("story-index", 0));
         Picasso.get().load(imageSet.get(0)).fit()
                 .centerCrop().into(currentlyDisplayedImg);
 
@@ -224,7 +223,7 @@ public class RecordingActivity extends Activity {
                 confirmButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         //TODO: stop recording/discard
-                        Intent intent = new Intent(RecordingActivity.this, MainActivity.class);
+                        Intent intent = new Intent(RecordingActivity.this, LandingPageActivity.class);
                         startActivity(intent);
                     }
                 });

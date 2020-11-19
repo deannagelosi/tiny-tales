@@ -21,7 +21,7 @@ public class ListenActivity extends AppCompatActivity {
 
         createTab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(ListenActivity.this, MainActivity.class);
+                Intent intent = new Intent(ListenActivity.this, LandingPageActivity.class);
                 startActivity(intent);
             }
         });

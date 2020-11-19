@@ -4,14 +4,13 @@ import androidx.cardview.widget.CardView;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends Activity {
+public class LandingPageActivity extends Activity {
 
     private ImageView addPhotosButton;
     private ImageView refreshButton;
@@ -84,7 +83,7 @@ public class MainActivity extends Activity {
         addPhotosButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //TODO: open up camera row select and import pictures
-                Intent intent = new Intent(MainActivity.this, WaitActivity.class);
+                Intent intent = new Intent(LandingPageActivity.this, WaitActivity.class);
                 startActivity(intent);
             }
         });
@@ -104,7 +103,7 @@ public class MainActivity extends Activity {
         //On click functions for 4 choices
         topLeftChoice.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, RecordingActivity.class);
+                Intent intent = new Intent(LandingPageActivity.this, RecordingActivity.class);
                 intent.putExtra("story-index", 0);
                 startActivity(intent);
             }
@@ -112,21 +111,21 @@ public class MainActivity extends Activity {
 
         topRightChoice.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, RecordingActivity.class);
+                Intent intent = new Intent(LandingPageActivity.this, RecordingActivity.class);
                 intent.putExtra("story-index", 1);
                 startActivity(intent);            }
         });
 
         bottomLeftChoice.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, RecordingActivity.class);
+                Intent intent = new Intent(LandingPageActivity.this, RecordingActivity.class);
                 intent.putExtra("story-index", 2);
                 startActivity(intent);            }
         });
 
         bottomRightChoice.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, RecordingActivity.class);
+                Intent intent = new Intent(LandingPageActivity.this, RecordingActivity.class);
                 intent.putExtra("story-index", 3);
                 startActivity(intent);            }
         });
@@ -134,7 +133,7 @@ public class MainActivity extends Activity {
 
         listenTab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ListenActivity.class);
+                Intent intent = new Intent(LandingPageActivity.this, ListenActivity.class);
                 startActivity(intent);
             }
         });
