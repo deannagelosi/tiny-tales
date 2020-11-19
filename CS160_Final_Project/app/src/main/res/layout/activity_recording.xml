@@ -138,14 +138,19 @@
 
     <RelativeLayout
         android:id="@+id/popup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="318dp"
+        android:layout_height="262dp"
         android:layout_centerInParent="true"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:background="@drawable/popup_background"
         android:orientation="vertical"
         android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/popupBG"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/popup_background" />
 
         <TextView
             android:id="@+id/saveTextView"
@@ -156,6 +161,57 @@
             android:fontFamily="@font/roboto_bold"
             android:text="@string/save"
             android:textAlignment="center"
+            android:textSize="36sp"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="264dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="2dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/titleTextView"
+                android:layout_width="158dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@string/title"
+                android:textColor="#393A3C"
+                android:textSize="36sp"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/titleTextEdit"
+                style="@style/Widget.AppCompat.EditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:fontFamily="@font/roboto_medium"
+                android:imeOptions="actionDone"
+                android:inputType="textShortMessage"
+                android:singleLine="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="24sp"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/doneButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="85dp"
+            android:background="@drawable/title_done_button"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center_horizontal|top"
+            android:paddingTop="3dp"
+            android:text="@string/done"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textSize="36sp"
             android:visibility="gone" />
 

@@ -5,6 +5,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -20,9 +24,13 @@ public class RecordingActivity extends Activity {
 
     private ImageView homeButton;
     private RelativeLayout popup;
+    private ImageView popupBG;
     private TextView saveText;
     private CardView confirmButton;
     private CardView cancelButton;
+    private TextView titleText;
+    private EditText titleEditText;
+    private Button doneButton;
 
     private ImageView currentlyDisplayedImg;
 
@@ -51,9 +59,13 @@ public class RecordingActivity extends Activity {
 
         homeButton = findViewById(R.id.homeButton);
         popup = findViewById(R.id.popup);
+        popupBG = findViewById(R.id.popupBG);
         saveText = findViewById(R.id.saveTextView);
         confirmButton = findViewById(R.id.confirm);
         cancelButton = findViewById(R.id.cancel);
+        titleText = findViewById(R.id.titleTextView);
+        titleEditText = findViewById(R.id.titleTextEdit);
+        doneButton = findViewById(R.id.doneButton);
 
         currentlyDisplayedImg = findViewById(R.id.currentlyDisplayedImg);
 
@@ -153,11 +165,33 @@ public class RecordingActivity extends Activity {
                 statusBar3.setAlpha((float) .5);
                 statusBar4.setAlpha((float) .5);
                 footer.setAlpha((float) .5);
+
                 confirmButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         timer.start();
                         //TODO: stop recording/save recording
-                        //TODO: show title popup
+                        saveText.setVisibility(View.GONE);
+                        cancelButton.setVisibility(View.GONE);
+                        confirmButton.setVisibility(View.GONE);
+
+                        Animation anim = new ScaleAnimation(
+                                1f, 1f, // Start and end values for the X axis scaling
+                                1f, 0.65f, // Start and end values for the Y axis scaling
+                                Animation.RELATIVE_TO_SELF, 0f, // Pivot point of X scaling
+                                Animation.RELATIVE_TO_SELF, 0f); // Pivot point of Y scaling
+                        anim.setFillAfter(true); // Needed to keep the result of the animation
+                        anim.setDuration(300);
+                        popupBG.startAnimation(anim);
+                        titleText.setVisibility(View.VISIBLE);
+                        titleEditText.setVisibility(View.VISIBLE);
+                        doneButton.setVisibility(View.VISIBLE);
+                        doneButton.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View v) {
+                                //TODO: Add story to list of finished stories
+                                Intent intent = new Intent(RecordingActivity.this, ListenActivity.class);
+                                startActivity(intent);
+                            }
+                        });
                     }
                 });
                 cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -186,6 +220,7 @@ public class RecordingActivity extends Activity {
                 statusBar3.setAlpha((float) .5);
                 statusBar4.setAlpha((float) .5);
                 footer.setAlpha((float) .5);
+
                 confirmButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         //TODO: stop recording/discard

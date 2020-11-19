@@ -28,8 +28,7 @@ public class MainActivity extends Activity {
     private ImageView topRightImage;
     private ImageView bottomLeftImage;
 
-    //the tabs
-    private ImageView createTab;
+    //footer tabs
     private ImageView listenTab;
 
     //To store our 4 arraylists filled with the corresponding story pictures used in recording
@@ -59,7 +58,6 @@ public class MainActivity extends Activity {
         topRightImage = findViewById(R.id.topRightImage);
         bottomLeftImage = findViewById(R.id.bottomLeftImage);
 
-        createTab = findViewById(R.id.createTab);
         listenTab = findViewById(R.id.listenTab);
 
         allStoriesList = new ArrayList<ArrayList<Integer>>();
@@ -86,6 +84,8 @@ public class MainActivity extends Activity {
         addPhotosButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //TODO: open up camera row select and import pictures
+                Intent intent = new Intent(MainActivity.this, WaitActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -134,17 +134,15 @@ public class MainActivity extends Activity {
 
         listenTab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //TODO: 
+                Intent intent = new Intent(MainActivity.this, ListenActivity.class);
+                startActivity(intent);
             }
         });
     }
 }
 
 //Frontend tasks to do:
-//1. Make title popup
-//2. Make Listen Page
-//3. Splash Page
-//4. Onboarding page
-// If we have timer
-//1. Using viewpager to have animated page swipes
-//2. Pause countdown timer when home/stop recording is pressed
+//1. Dynamic Recycler View with Cardviews on Listen page
+//2. Splash Page
+//3. Onboarding page
+//4. Using viewpager to have animated page swipes
