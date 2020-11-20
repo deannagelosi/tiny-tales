@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".OnboardingActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="391dp"
+            android:layout_height="500dp"
+            android:layout_marginTop="100dp"
+            android:gravity="start"
+            android:layout_gravity="center">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@string/tiny_tales"
+                android:textAlignment="center"
+                android:textColor="#393A3C"
+                android:textSize="64sp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="80dp"
+                android:textAlignment="center"
+                android:background="@drawable/circle_background"
+                android:orientation="vertical" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="150dp">
+
+                    <ImageView
+                        android:layout_width="44dp"
+                        android:layout_height="45dp"
+                        android:layout_marginLeft="75dp"
+                        android:src="@drawable/add_photos_icon" />
+                    
+                    <TextView
+                        android:layout_width="200dp"
+                        android:layout_height="45dp"
+                        android:layout_marginLeft="30dp"
+                        android:text="@string/add_photos"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textSize="24sp"
+                        android:textColor="#393A3C" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="210dp">
+
+                    <TextView
+                        android:layout_width="250dp"
+                        android:layout_height="55dp"
+                        android:layout_marginLeft="30dp"
+                        android:gravity="right"
+                        android:text="@string/random"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textSize="24sp"
+                        android:textColor="#393A3C" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="25dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/question_mark" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="300dp">
+
+                    <ImageView
+                        android:layout_width="44dp"
+                        android:layout_height="45dp"
+                        android:layout_marginLeft="30dp"
+                        android:src="@drawable/record_button" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="60dp"
+                        android:layout_marginLeft="30dp"
+                        android:text="@string/record"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textSize="24sp"
+                        android:textColor="#393A3C" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="390dp"
+                    android:layout_marginLeft="60dp"
+                    android:text="@string/swipe"
+                    android:fontFamily="@font/roboto_bold"
+                    android:textSize="24sp"
+                    android:textColor="#393A3C" />
+            
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="145dp"
+        android:layout_height="249dp"
+        android:layout_marginTop="500dp"
+        android:layout_marginLeft="280dp"
+        android:src="@drawable/cat_paw" />
+    
+    <TextView
+        android:layout_width="183dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="625dp"
+        android:layout_marginLeft="80dp"
+        android:text="@string/tap"
+        android:fontFamily="@font/roboto_italic"
+        android:textSize="24sp"
+        android:textColor="#393A3C" />
+
+</RelativeLayout>
