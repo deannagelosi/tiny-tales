@@ -16,7 +16,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Onboarding" />
+        <activity android:name=".OnboardingActivity" />
         <activity android:name=".WaitActivity"/>
         <activity android:name=".ListenActivity" />
         <activity android:name=".RecordingActivity" />
