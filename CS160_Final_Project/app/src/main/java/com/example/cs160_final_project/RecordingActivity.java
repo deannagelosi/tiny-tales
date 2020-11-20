@@ -3,6 +3,9 @@ package com.example.cs160_final_project;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -15,11 +18,10 @@ import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 import java.util.ArrayList;
-import com.squareup.picasso.Picasso;
 
 public class RecordingActivity extends Activity {
 
-    public static ArrayList<Integer> imageSet;
+    public static ArrayList<Bitmap> imageSet;
 
     private ImageView homeButton;
     private RelativeLayout popup;
@@ -95,8 +97,7 @@ public class RecordingActivity extends Activity {
 
         Intent intent = getIntent();
         imageSet = LandingPageActivity.allStoriesList.get(intent.getIntExtra("story-index", 0));
-        Picasso.get().load(imageSet.get(0)).fit()
-                .centerCrop().into(currentlyDisplayedImg);
+        currentlyDisplayedImg.setImageBitmap(scaleCenterCrop(imageSet.get(0), 380, 380));
 
         startRecordingButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -117,8 +118,7 @@ public class RecordingActivity extends Activity {
             public void onSwipeLeft() {
                 if (pageIndex < 3 && recordingStarted) {
                     pageIndex++;
-                    Picasso.get().load(imageSet.get(pageIndex)).fit()
-                            .centerCrop().into(currentlyDisplayedImg);
+                    currentlyDisplayedImg.setImageBitmap(scaleCenterCrop(imageSet.get(pageIndex), 380, 380));
                     //gross code i know, but probably implementing it with viewpager this is just temporary
                     if (pageIndex == 1) {
                         swipeInfoMessage.setVisibility(View.GONE);
@@ -136,8 +136,7 @@ public class RecordingActivity extends Activity {
             public void onSwipeRight() {
                 if (pageIndex > 0) {
                     pageIndex--;
-                    Picasso.get().load(imageSet.get(pageIndex)).fit()
-                            .centerCrop().into(currentlyDisplayedImg);
+                    currentlyDisplayedImg.setImageBitmap(scaleCenterCrop(imageSet.get(pageIndex), 380, 380));
                     if (pageIndex == 0) {
                         swipeInfoMessage.setVisibility(View.GONE);
                         statusBar2.setImageResource(R.drawable.status_tabs);
@@ -243,6 +242,38 @@ public class RecordingActivity extends Activity {
                 });
             }
         });
+    }
 
+    private Bitmap scaleCenterCrop(Bitmap source, int newHeight, int newWidth) {
+        int sourceWidth = source.getWidth();
+        int sourceHeight = source.getHeight();
+
+        // Compute the scaling factors to fit the new height and width, respectively.
+        // To cover the final image, the final scaling will be the bigger
+        // of these two.
+        float xScale = (float) newWidth / sourceWidth;
+        float yScale = (float) newHeight / sourceHeight;
+        float scale = Math.max(xScale, yScale);
+
+        // Now get the size of the source bitmap when scaled
+        float scaledWidth = scale * sourceWidth;
+        float scaledHeight = scale * sourceHeight;
+
+        // Let's find out the upper left coordinates if the scaled bitmap
+        // should be centered in the new size give by the parameters
+        float left = (newWidth - scaledWidth) / 2;
+        float top = (newHeight - scaledHeight) / 2;
+
+        // The target rectangle for the new, scaled version of the source bitmap will now
+        // be
+        RectF targetRect = new RectF(left, top, left + scaledWidth, top + scaledHeight);
+
+        // Finally, we create a new bitmap of the specified size and draw our new,
+        // scaled bitmap onto it.
+        Bitmap dest = Bitmap.createBitmap(newWidth, newHeight, source.getConfig());
+        Canvas canvas = new Canvas(dest);
+        canvas.drawBitmap(source, null, targetRect, null);
+
+        return dest;
     }
 }

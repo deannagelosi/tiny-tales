@@ -4,6 +4,8 @@ import androidx.cardview.widget.CardView;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -31,13 +33,13 @@ public class LandingPageActivity extends Activity {
     private ImageView listenTab;
 
     //To store our 4 arraylists filled with the corresponding story pictures used in recording
-    public static ArrayList<ArrayList<Integer>> allStoriesList;
+    public static ArrayList<ArrayList<Bitmap>> allStoriesList;
 
     //individual story arraylists
-    private ArrayList<Integer> topLeftStoryList;
-    private ArrayList<Integer> topRightStoryList;
-    private ArrayList<Integer> bottomLeftStoryList;
-    private ArrayList<Integer> bottomRightStoryList;
+    private ArrayList<Bitmap> topLeftStoryList;
+    private ArrayList<Bitmap> topRightStoryList;
+    private ArrayList<Bitmap> bottomLeftStoryList;
+    private ArrayList<Bitmap> bottomRightStoryList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,12 +61,12 @@ public class LandingPageActivity extends Activity {
 
         listenTab = findViewById(R.id.listenTab);
 
-        allStoriesList = new ArrayList<ArrayList<Integer>>();
+        allStoriesList = new ArrayList<ArrayList<Bitmap>>();
 
-        topLeftStoryList = new ArrayList<Integer>();
-        topRightStoryList = new ArrayList<Integer>();
-        bottomLeftStoryList = new ArrayList<Integer>();
-        bottomRightStoryList = new ArrayList<Integer>();
+        topLeftStoryList = new ArrayList<Bitmap>();
+        topRightStoryList = new ArrayList<Bitmap>();
+        bottomLeftStoryList = new ArrayList<Bitmap>();
+        bottomRightStoryList = new ArrayList<Bitmap>();
 
         allStoriesList.add(topLeftStoryList);
         allStoriesList.add(topRightStoryList);
@@ -73,10 +75,10 @@ public class LandingPageActivity extends Activity {
 
         //TODO: Generate all 4 stories, set tag, and add to arraylist, probably make this a function
         //temporarily hardcoding in the top left story
-        allStoriesList.get(0).add(R.drawable.story_filler_1);
-        allStoriesList.get(0).add(R.drawable.story_filler_2);
-        allStoriesList.get(0).add(R.drawable.story_filler_3);
-        allStoriesList.get(0).add(R.drawable.story_filler_4);
+        allStoriesList.get(0).add(BitmapFactory.decodeResource(this.getResources(), R.drawable.story_filler_1));
+        allStoriesList.get(0).add(BitmapFactory.decodeResource(this.getResources(), R.drawable.story_filler_2));
+        allStoriesList.get(0).add(BitmapFactory.decodeResource(this.getResources(),R.drawable.story_filler_3));
+        allStoriesList.get(0).add(BitmapFactory.decodeResource(this.getResources(), R.drawable.story_filler_4));
 
         //TODO: Display the first 3 images's
 
@@ -96,7 +98,8 @@ public class LandingPageActivity extends Activity {
 
         infoButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //TODO: show onboarding page
+                Intent intent = new Intent(LandingPageActivity.this, OnboardingActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -113,21 +116,24 @@ public class LandingPageActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(LandingPageActivity.this, RecordingActivity.class);
                 intent.putExtra("story-index", 1);
-                startActivity(intent);            }
+                startActivity(intent);
+            }
         });
 
         bottomLeftChoice.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(LandingPageActivity.this, RecordingActivity.class);
                 intent.putExtra("story-index", 2);
-                startActivity(intent);            }
+                startActivity(intent);
+            }
         });
 
         bottomRightChoice.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(LandingPageActivity.this, RecordingActivity.class);
                 intent.putExtra("story-index", 3);
-                startActivity(intent);            }
+                startActivity(intent);
+            }
         });
 
 
@@ -142,6 +148,4 @@ public class LandingPageActivity extends Activity {
 
 //Frontend tasks to do:
 //1. Dynamic Recycler View with Cardviews on Listen page
-//2. Splash Page
-//3. Onboarding page
-//4. Using viewpager to have animated page swipes
+//3. Using viewpager to have animated page swipes
