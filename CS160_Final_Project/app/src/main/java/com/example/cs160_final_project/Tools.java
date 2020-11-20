@@ -1,6 +1,6 @@
 package com.example.cs160_final_project;
 
-import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -13,15 +13,15 @@ public class Tools {
         c.retainAll(b);
         return c;
     }
-    static int FindNextPicture(int index, ArrayList<Integer> duplicates, ArrayList<Bitmap> pictures, ArrayList<Set> labels) {
-        Set a = labels.get(index);
+    static int FindNextPicture(int index, ArrayList<Integer> duplicates, ArrayList<Set> combinedLabels) {
+        Set a = combinedLabels.get(index);
         int max_ind = 0;
         int max_inter = 0;
-        for (int i = 0; i < pictures.size(); i++) {
+        for (int i = 0; i < combinedLabels.size(); i++) {
             if (duplicates.contains(i)) {
                 continue;
             }
-            Set b = labels.get(i);
+            Set b = combinedLabels.get(i);
             Set intersection = intersect(a, b);
             if (intersection.size() >= max_inter) {
                 max_inter = intersection.size();
@@ -31,14 +31,31 @@ public class Tools {
         duplicates.add(max_ind);
         return max_ind;
     }
-    static void Generatestories(ArrayList<Integer> duplicates, ArrayList<Bitmap> pictures, ArrayList<Set> labels) {
+    static ArrayList<Drawable> Generatestories(ArrayList<Drawable> userPictures, ArrayList<Drawable> stockPictures, ArrayList<Set> userLabels, ArrayList<Set> stockLabels) {
         Random rand = new Random();
-        int index = rand.nextInt(pictures.size());
+        ArrayList<Drawable> combinedPictures = new ArrayList<>(userPictures);
+        combinedPictures.addAll(stockPictures);
+        ArrayList<Set> combinedLabels = new ArrayList<>(userLabels);
+        combinedLabels.addAll(stockLabels);
+
+        ArrayList<Integer> duplicates = new ArrayList<>();
+        int index;
+        if (userPictures.size() > 0) {
+            index = rand.nextInt(userPictures.size());
+        } else {
+            index = rand.nextInt(stockPictures.size());
+        }
         duplicates.add(index);
         for (int i = 0; i < 3; i++) {
-            FindNextPicture(index, duplicates, pictures, labels);
+            FindNextPicture(index, duplicates, combinedLabels);
             index = duplicates.get(duplicates.size() - 1);
         }
+
+        ArrayList<Drawable> story = new ArrayList<>();
+        for (int i = 0; i < duplicates.size(); i++) {
+            story.add(combinedPictures.get(duplicates.get(i)));
+        }
+        return story;
     }
 
 }

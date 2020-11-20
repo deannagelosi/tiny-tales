@@ -1,6 +1,7 @@
 package com.example.cs160_final_project;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -41,10 +42,11 @@ public class MainActivity extends AppCompatActivity {
     HashSet<Drawable> storyImageSet;
 
     //where the images and labels will be stored
-    public ArrayList<Bitmap> pictures = new ArrayList<>();
-    public ArrayList<Set> labels = new ArrayList<>();
-    public ArrayList<Integer> duplicates = new ArrayList<>();
-
+    public ArrayList<Drawable> userPictures = new ArrayList<>();
+    public ArrayList<Drawable> stockPictures = new ArrayList<>();
+    public ArrayList<Set> userLabels = new ArrayList<>();
+    public ArrayList<Set> stockLabels = new ArrayList<>();
+    public ArrayList<ArrayList<Drawable>> stories = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,17 +54,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         SetupStock();
-        Tools.Generatestories(duplicates,pictures,labels);
-        //Log.println(VERBOSE, null, "here are the list of pictures ind " + duplicates.toString());
+        PopulateStories(stories);
+        //Log.println(VERBOSE, null, "here are the list of pictures ind " + stories.toString());
 
         topLeftChoice = findViewById(R.id.topLeftChoice);
         topRightChoice = findViewById(R.id.topRightChoice);
         bottomLeftChoice = findViewById(R.id.bottomLeftChoice);
         bottomRightChoice = findViewById(R.id.bottomRightChoice);
         topLeftImage = findViewById(R.id.topLeftImage);
-//        code to change img views from bitmap
-//        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.candy);
-//        topLeftImage.setImageBitmap(Bitmap.createScaledBitmap(bm, 139, 139, false));
 
         topRightImage = findViewById(R.id.topRightImage);
         bottomLeftImage = findViewById(R.id.bottomLeftImage);
@@ -131,17 +130,46 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void PopulateStories(ArrayList<ArrayList<Drawable>> stories) {
+        stories.clear();
+        for (int i = 0; i < 4; i++) {
+            ArrayList<Drawable> story = Tools.Generatestories(userPictures,stockPictures,userLabels,stockLabels);
+            stories.add(story);
+        }
+    }
+
     public void SetupStock() {
         Bitmap bm;
         Set<String> label;
-        bm = BitmapFactory.decodeResource(getResources(), R.drawable.candy);
+
         label = new HashSet<>();
         label.add("Food");
-        label.add("Candy");
-        labels.add(label);
-        pictures.add(bm);
+        label.add("Meal");
+        label.add("Cuisine");
+        label.add("Dish");
+        label.add("Ingredient");
+        label.add("Convenience Food");
+        label.add("Food Group");
+        label.add("Lunch");
+        label.add("Prepackaged Meal");
+        label.add("Junk Food");
+        label.add("Natural Foods");
+        label.add("Produce");
+        label.add("Take-out Food");
+        label.add("Confectionery");
+        label.add("Comfort Food");
+        label.add("Vegetarian Food");
+        label.add("Sweetness");
+        label.add("Vegetable");
+        label.add("Finger Food");
+        label.add("Vegan Nutrition");
+        label.add("Fast Food");
+        label.add("Hawaiian Food");
+        label.add("Snack");
+        stockLabels.add(label);
+        stockPictures.add(ResourcesCompat.getDrawable(getResources(), R.drawable.candy, null));
 
-        bm = BitmapFactory.decodeResource(getResources(), R.drawable.lion);
+        label = new HashSet<>();
         label.add("Facial Expression");
         label.add("Wildlife");
         label.add("Lion");
@@ -158,30 +186,81 @@ public class MainActivity extends AppCompatActivity {
         label.add("Yawn");
         label.add("Hug");
         label.add("Laugh");
-        labels.add(label);
-        pictures.add(bm);
+        stockLabels.add(label);
+        stockPictures.add(ResourcesCompat.getDrawable(getResources(), R.drawable.lion, null));
 
-        bm = BitmapFactory.decodeResource(getResources(), R.drawable.duck);
+        label = new HashSet<>();
         label.add("Duck");
         label.add("Bird");
-        labels.add(label);
-        pictures.add(bm);
+        label.add("Vertebrate");
+        label.add("Water Bird");
+        label.add("Waterfowl");
+        label.add("Ducks, Geese And Swans");
+        label.add("Beak");
+        label.add("Mallard");
+        label.add("Water");
+        label.add("American Black Duck");
+        label.add("Seaduck");
+        label.add("Wildlife");
+        label.add("Pied Billed Grebe");
+        label.add("Goose");
+        label.add("Ruddy Duck");
+        label.add("Wing");
+        label.add("Pond");
+        label.add("Feather");
+        stockLabels.add(label);
+        stockPictures.add(ResourcesCompat.getDrawable(getResources(), R.drawable.duck, null));
 
-        bm = BitmapFactory.decodeResource(getResources(), R.drawable.frog);
-        label.add("Butterfly");
-        label.add("Animal");
+        label = new HashSet<>();
+        label.add("Green");
+        label.add("Water");
         label.add("Frog");
-        labels.add(label);
-        pictures.add(bm);
+        label.add("Organism");
+        label.add("True Frog");
+        label.add("Amphibian");
+        label.add("Eye");
+        label.add("Adaptation");
+        label.add("Macro Photography");
+        label.add("Aquatic Plant");
+        label.add("Plant");
+        label.add("Photography");
+        label.add("Wildlife");
+        label.add("Toad");
+        stockLabels.add(label);
+        stockPictures.add(ResourcesCompat.getDrawable(getResources(), R.drawable.frog, null));
 
-        bm = BitmapFactory.decodeResource(getResources(), R.drawable.snow);
-        label.add("Food");
-        label.add("Candy");
-        label.add("Butterfly");
-        label.add("Animal");
-        label.add("Frog");
-        labels.add(label);
-        pictures.add(bm);
+        label = new HashSet<>();
+        label.add("Snow");
+        label.add("Geological Phenomenon");
+        label.add("Winter");
+        label.add("Mountainous Landforms");
+        label.add("Glacial Landform");
+        label.add("Mountain");
+        label.add("Mountain Range");
+        label.add("Ice Cap");
+        label.add("Nunatak");
+        label.add("Recreation");
+        label.add("Ridge");
+        label.add("Adventure");
+        label.add("Glacier");
+        label.add("Vehicle");
+        label.add("Ice");
+        label.add("Mountaineering");
+        label.add("Alps");
+        label.add("Arctic");
+        label.add("Winter Sport");
+        label.add("Terrain");
+        label.add("Massif");
+        label.add("Summit");
+        label.add("Landscape");
+        label.add("Fell");
+        label.add("Freezing");
+        label.add("Mountaineer");
+        label.add("Mountain Guide");
+        label.add("Ski Mountaineering");
+        label.add("Tourism");
+        stockLabels.add(label);
+        stockPictures.add(ResourcesCompat.getDrawable(getResources(), R.drawable.snow, null));
     }
 }
 
