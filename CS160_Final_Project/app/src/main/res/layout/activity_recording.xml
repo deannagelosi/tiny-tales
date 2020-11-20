@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
     tools:context=".RecordingActivity">
 
     <ImageView
@@ -12,7 +13,21 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="22dp"
         android:layout_marginTop="30dp"
-        app:srcCompat="@drawable/home_icon" />
+        android:src="@drawable/home_icon" />
+
+    <TextView
+        android:id="@+id/theEndTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/the_end"
+        android:textAlignment="center"
+        android:textColor="#393A3C"
+        android:textSize="48sp"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/swipeInfoMessage"
@@ -21,8 +36,8 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="51dp"
         android:layout_marginEnd="16dp"
-        android:visibility="gone"
-        app:srcCompat="@drawable/swipe_to_turn" />
+        android:src="@drawable/swipe_to_turn"
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,14 +49,16 @@
 
         <ImageView
             android:id="@+id/currentlyDisplayedImg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/big_filler_image_1" />
+            android:layout_width="380dp"
+            android:layout_height="380dp"
+            android:alpha=".5"
+            android:src="@drawable/story_filler_1" />
 
         <LinearLayout
             android:id="@+id/statusBars"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -49,86 +66,195 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/status_tabs" />
+                android:src="@drawable/status_tabs" />
 
             <ImageView
                 android:id="@+id/statusBar2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/status_tabs" />
+                android:src="@drawable/status_tabs" />
 
             <ImageView
                 android:id="@+id/statusBar3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/status_tabs" />
+                android:src="@drawable/status_tabs" />
 
             <ImageView
                 android:id="@+id/statusBar4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/status_tabs" />
+                android:src="@drawable/status_tabs" />
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/footer"
         android:layout_width="match_parent"
-        android:layout_height="89dp"
+        android:layout_height="95dp"
         android:layout_alignParentEnd="false"
         android:layout_alignParentBottom="true"
         android:background="@drawable/footer_bar"
-        android:gravity="center"
-        android:orientation="horizontal"
         android:paddingStart="30dp"
         android:paddingEnd="30dp">
 
         <ImageView
             android:id="@+id/startRecordingButton"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/record_button" />
+            android:layout_centerInParent="true"
+            android:src="@drawable/record_button" />
 
         <ImageView
             android:id="@+id/stopRecordingButton"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:visibility="gone"
-            app:srcCompat="@drawable/stop_button" />
+            android:layout_centerInParent="true"
+            android:src="@drawable/stop_button"
+            android:visibility="gone" />
 
-    </LinearLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/record_time_background">
 
-    <LinearLayout
-        android:id="@+id/homePopup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+            <TextView
+                android:id="@+id/stopwatchText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="25dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@string/_00_00" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/popup"
+        android:layout_width="318dp"
+        android:layout_height="262dp"
         android:layout_centerInParent="true"
-        android:layout_marginStart="46dp"
-        android:layout_marginEnd="46dp"
-        android:background="@drawable/popup_background"
-        android:gravity="center"
-        android:orientation="horizontal"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:orientation="vertical"
         android:visibility="gone">
 
         <ImageView
-            android:id="@+id/confirm"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="13dp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/checkmark" />
+            android:id="@+id/popupBG"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/popup_background" />
 
-        <ImageView
-            android:id="@+id/cancel"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/saveTextView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="13dp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/cancel" />
-    </LinearLayout>
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="@string/save"
+            android:textAlignment="center"
+            android:textSize="36sp"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="264dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="2dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/titleTextView"
+                android:layout_width="158dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@string/title"
+                android:textColor="#393A3C"
+                android:textSize="36sp"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/titleTextEdit"
+                style="@style/Widget.AppCompat.EditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:fontFamily="@font/roboto_medium"
+                android:imeOptions="actionDone"
+                android:inputType="textShortMessage"
+                android:singleLine="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="24sp"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/doneButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="85dp"
+            android:background="@drawable/title_done_button"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center_horizontal|top"
+            android:paddingTop="3dp"
+            android:text="@string/done"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="36sp"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/confirm"
+                android:layout_width="118dp"
+                android:layout_height="118dp"
+                android:layout_margin="12dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="5dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:src="@drawable/checkmark" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cancel"
+                android:layout_width="118dp"
+                android:layout_height="118dp"
+                android:layout_margin="12dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="5dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:src="@drawable/cancel" />
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>
