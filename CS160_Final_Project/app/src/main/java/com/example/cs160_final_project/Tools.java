@@ -1,5 +1,6 @@
 package com.example.cs160_final_project;
 
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 
 import java.util.ArrayList;
@@ -31,9 +32,9 @@ public class Tools {
         duplicates.add(max_ind);
         return max_ind;
     }
-    static ArrayList<Drawable> Generatestories(ArrayList<Drawable> userPictures, ArrayList<Drawable> stockPictures, ArrayList<Set> userLabels, ArrayList<Set> stockLabels) {
+    static ArrayList<Bitmap> Generatestories(ArrayList<Bitmap> userPictures, ArrayList<Bitmap> stockPictures, ArrayList<Set> userLabels, ArrayList<Set> stockLabels) {
         Random rand = new Random();
-        ArrayList<Drawable> combinedPictures = new ArrayList<>(userPictures);
+        ArrayList<Bitmap> combinedPictures = new ArrayList<>(userPictures);
         combinedPictures.addAll(stockPictures);
         ArrayList<Set> combinedLabels = new ArrayList<>(userLabels);
         combinedLabels.addAll(stockLabels);
@@ -51,7 +52,7 @@ public class Tools {
             index = duplicates.get(duplicates.size() - 1);
         }
 
-        ArrayList<Drawable> story = new ArrayList<>();
+        ArrayList<Bitmap> story = new ArrayList<>();
         for (int i = 0; i < duplicates.size(); i++) {
             story.add(combinedPictures.get(duplicates.get(i)));
         }

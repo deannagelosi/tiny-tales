@@ -42,11 +42,11 @@ public class MainActivity extends AppCompatActivity {
     HashSet<Drawable> storyImageSet;
 
     //where the images and labels will be stored
-    public ArrayList<Drawable> userPictures = new ArrayList<>();
-    public ArrayList<Drawable> stockPictures = new ArrayList<>();
+    public ArrayList<Bitmap> userPictures = new ArrayList<>();
+    public ArrayList<Bitmap> stockPictures = new ArrayList<>();
     public ArrayList<Set> userLabels = new ArrayList<>();
     public ArrayList<Set> stockLabels = new ArrayList<>();
-    public ArrayList<ArrayList<Drawable>> stories = new ArrayList<>();
+    public ArrayList<ArrayList<Bitmap>> stories = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         SetupStock();
         PopulateStories(stories);
-        //Log.println(VERBOSE, null, "here are the list of pictures ind " + stories.toString());
+        Log.println(VERBOSE, null, "here are the list of pictures ind " + stories.toString());
 
         topLeftChoice = findViewById(R.id.topLeftChoice);
         topRightChoice = findViewById(R.id.topRightChoice);
@@ -130,10 +130,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void PopulateStories(ArrayList<ArrayList<Drawable>> stories) {
+    public void PopulateStories(ArrayList<ArrayList<Bitmap>> stories) {
         stories.clear();
         for (int i = 0; i < 4; i++) {
-            ArrayList<Drawable> story = Tools.Generatestories(userPictures,stockPictures,userLabels,stockLabels);
+            ArrayList<Bitmap> story = Tools.Generatestories(userPictures,stockPictures,userLabels,stockLabels);
             stories.add(story);
         }
     }
@@ -167,7 +167,8 @@ public class MainActivity extends AppCompatActivity {
         label.add("Hawaiian Food");
         label.add("Snack");
         stockLabels.add(label);
-        stockPictures.add(ResourcesCompat.getDrawable(getResources(), R.drawable.candy, null));
+        bm = BitmapFactory.decodeResource(getResources(), R.drawable.candy);
+        stockPictures.add(bm);
 
         label = new HashSet<>();
         label.add("Facial Expression");
@@ -187,7 +188,8 @@ public class MainActivity extends AppCompatActivity {
         label.add("Hug");
         label.add("Laugh");
         stockLabels.add(label);
-        stockPictures.add(ResourcesCompat.getDrawable(getResources(), R.drawable.lion, null));
+        bm = BitmapFactory.decodeResource(getResources(), R.drawable.lion);
+        stockPictures.add(bm);
 
         label = new HashSet<>();
         label.add("Duck");
@@ -209,7 +211,8 @@ public class MainActivity extends AppCompatActivity {
         label.add("Pond");
         label.add("Feather");
         stockLabels.add(label);
-        stockPictures.add(ResourcesCompat.getDrawable(getResources(), R.drawable.duck, null));
+        bm = BitmapFactory.decodeResource(getResources(), R.drawable.duck);
+        stockPictures.add(bm);
 
         label = new HashSet<>();
         label.add("Green");
@@ -227,7 +230,8 @@ public class MainActivity extends AppCompatActivity {
         label.add("Wildlife");
         label.add("Toad");
         stockLabels.add(label);
-        stockPictures.add(ResourcesCompat.getDrawable(getResources(), R.drawable.frog, null));
+        bm = BitmapFactory.decodeResource(getResources(), R.drawable.frog);
+        stockPictures.add(bm);
 
         label = new HashSet<>();
         label.add("Snow");
@@ -260,7 +264,8 @@ public class MainActivity extends AppCompatActivity {
         label.add("Ski Mountaineering");
         label.add("Tourism");
         stockLabels.add(label);
-        stockPictures.add(ResourcesCompat.getDrawable(getResources(), R.drawable.snow, null));
+        bm = BitmapFactory.decodeResource(getResources(), R.drawable.snow);
+        stockPictures.add(bm);
     }
 }
 
