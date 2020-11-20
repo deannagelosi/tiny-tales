@@ -53,9 +53,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SetupStock();
-        PopulateStories(stories);
-        Log.println(VERBOSE, null, "here are the list of pictures ind " + stories.toString());
+        setupStock();
+        populateStories(stories);
+        Log.println(VERBOSE, "debug", "here are the list of pictures ind " + stories.toString());
 
         topLeftChoice = findViewById(R.id.topLeftChoice);
         topRightChoice = findViewById(R.id.topRightChoice);
@@ -130,15 +130,17 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void PopulateStories(ArrayList<ArrayList<Bitmap>> stories) {
+    // BACKEND: Generate content in this.stories (called once by onCreate)
+    private void populateStories(ArrayList<ArrayList<Bitmap>> stories) {
         stories.clear();
         for (int i = 0; i < 4; i++) {
-            ArrayList<Bitmap> story = Tools.Generatestories(userPictures,stockPictures,userLabels,stockLabels);
+            ArrayList<Bitmap> story = Tools.generateStories(userPictures,stockPictures,userLabels,stockLabels);
             stories.add(story);
         }
     }
 
-    public void SetupStock() {
+    // BACKEND: Add labels to stock images
+    private void setupStock() {
         Bitmap bm;
         Set<String> label;
 

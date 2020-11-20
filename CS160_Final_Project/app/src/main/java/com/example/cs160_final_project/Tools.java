@@ -9,12 +9,15 @@ import java.util.Random;
 import java.util.Set;
 
 public class Tools {
-    static Set intersect(Set a, Set b) {
+    // Backend: Perform set intersection of sets a and b, returns a new set of their intersection
+    private static Set intersect(Set a, Set b) {
         Set c = new HashSet(a);
         c.retainAll(b);
         return c;
     }
-    static int FindNextPicture(int index, ArrayList<Integer> duplicates, ArrayList<Set> combinedLabels) {
+
+    // Backend: Return integer index of the next picture
+    private static int findNextPicture(int index, ArrayList<Integer> duplicates, ArrayList<Set> combinedLabels) {
         Set a = combinedLabels.get(index);
         int max_ind = 0;
         int max_inter = 0;
@@ -32,7 +35,7 @@ public class Tools {
         duplicates.add(max_ind);
         return max_ind;
     }
-    static ArrayList<Bitmap> Generatestories(ArrayList<Bitmap> userPictures, ArrayList<Bitmap> stockPictures, ArrayList<Set> userLabels, ArrayList<Set> stockLabels) {
+    static ArrayList<Bitmap> generateStories(ArrayList<Bitmap> userPictures, ArrayList<Bitmap> stockPictures, ArrayList<Set> userLabels, ArrayList<Set> stockLabels) {
         Random rand = new Random();
         ArrayList<Bitmap> combinedPictures = new ArrayList<>(userPictures);
         combinedPictures.addAll(stockPictures);
@@ -48,7 +51,7 @@ public class Tools {
         }
         duplicates.add(index);
         for (int i = 0; i < 3; i++) {
-            FindNextPicture(index, duplicates, combinedLabels);
+            findNextPicture(index, duplicates, combinedLabels);
             index = duplicates.get(duplicates.size() - 1);
         }
 
