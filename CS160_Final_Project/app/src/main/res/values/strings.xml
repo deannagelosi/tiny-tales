@@ -11,7 +11,7 @@
     <string name="listen">listen</string>
     <string name="add_photos">add your photos</string>
     <string name="random">pick a starting image or a random one</string>
-    <string name="record">begin your story (don't worry, we'll record it)</string>
+    <string name="record">begin your story (don\'t worry, we\'ll record it)</string>
     <string name="swipe">swipe to turn page</string>
     <string name="tap">tap to continue...</string>
 </resources>
