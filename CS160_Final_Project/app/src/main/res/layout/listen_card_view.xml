@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_gravity="center"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="18dp"
+    app:cardElevation="5dp">
+
+    <RelativeLayout
+        android:layout_width="180dp"
+        android:layout_height="230dp"
+        android:background="#FFFFFF">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="15dp"
+            app:cardCornerRadius="18dp">
+
+            <ImageView
+                android:id="@+id/videoImage"
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/filler_image_1" />
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/play_button" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/storyTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="25dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="@string/filler_title"
+            android:textColor="#393A3C"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/storyOptions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="28dp"
+            app:srcCompat="@drawable/listen_menu" />
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

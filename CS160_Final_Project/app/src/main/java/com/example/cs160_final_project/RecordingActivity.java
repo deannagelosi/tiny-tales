@@ -1,45 +1,49 @@
 package com.example.cs160_final_project;
 
-import android.annotation.SuppressLint;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
-
-import android.os.Bundle;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import androidx.cardview.widget.CardView;
 
+  
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.RectF;
+import android.hardware.display.DisplayManager;
+import android.hardware.display.VirtualDisplay;
+import android.Manifest;
+import android.media.MediaRecorder;
+import android.media.projection.MediaProjection;
+import android.media.projection.MediaProjectionManager;
+import android.os.Bundle;
+import android.os.Environment;
+import android.util.DisplayMetrics;
+import android.util.SparseIntArray;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
+import android.view.Surface;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.material.snackbar.Snackbar;
+
+import java.util.ArrayList;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
-import com.google.android.material.snackbar.Snackbar;
-import com.squareup.picasso.Picasso;
-
-// Recording Libraries
-import android.Manifest;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.hardware.display.DisplayManager;
-import android.hardware.display.VirtualDisplay;
-import android.media.MediaRecorder;
-import android.media.projection.MediaProjection;
-import android.media.projection.MediaProjectionManager;
-import android.os.Environment;
-import android.util.DisplayMetrics;
-import android.util.SparseIntArray;
-import android.view.Surface;
-import android.view.View;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
-
 
 public class RecordingActivity extends AppCompatActivity {
 
@@ -47,13 +51,19 @@ public class RecordingActivity extends AppCompatActivity {
     private static final int REQUEST_CODE = 1000;
     private static final int REQUEST_PERMISSION = 1001;
 
-    public static ArrayList<Integer> imageSet;
+    public static ArrayList<Bitmap> imageSet;
+    public static ArrayList<SavedVideo> savedVideosList = new ArrayList<SavedVideo>();
+    private SavedVideo videoToBeSaved;
 
     private ImageView homeButton;
     private RelativeLayout popup;
+    private ImageView popupBG;
     private TextView saveText;
     private CardView confirmButton;
     private CardView cancelButton;
+    private TextView titleText;
+    private EditText titleEditText;
+    private Button doneButton;
 
     private ImageView currentlyDisplayedImg;
 
@@ -104,11 +114,17 @@ public class RecordingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recording);
 
+        videoToBeSaved = new SavedVideo();
+
         homeButton = findViewById(R.id.homeButton);
         popup = findViewById(R.id.popup);
+        popupBG = findViewById(R.id.popupBG);
         saveText = findViewById(R.id.saveTextView);
         confirmButton = findViewById(R.id.confirm);
         cancelButton = findViewById(R.id.cancel);
+        titleText = findViewById(R.id.titleTextView);
+        titleEditText = findViewById(R.id.titleTextEdit);
+        doneButton = findViewById(R.id.doneButton);
 
         currentlyDisplayedImg = findViewById(R.id.currentlyDisplayedImg);
 
@@ -149,9 +165,9 @@ public class RecordingActivity extends AppCompatActivity {
         };
 
         Intent intent = getIntent();
-        imageSet = MainActivity.allStoriesList.get(intent.getIntExtra("story-index", 0));
-        Picasso.get().load(imageSet.get(0)).fit()
-                .centerCrop().into(currentlyDisplayedImg);
+        imageSet = LandingPageActivity.allStoriesList.get(intent.getIntExtra("story-index", 0));
+        currentlyDisplayedImg.setImageBitmap(scaleCenterCrop(imageSet.get(0), 380, 380));
+        videoToBeSaved.setCoverImage(scaleCenterCrop(imageSet.get(0), 380, 380));
 
         startRecordingButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -204,8 +220,7 @@ public class RecordingActivity extends AppCompatActivity {
             public void onSwipeLeft() {
                 if (pageIndex < 3 && recordingStarted) {
                     pageIndex++;
-                    Picasso.get().load(imageSet.get(pageIndex)).fit()
-                            .centerCrop().into(currentlyDisplayedImg);
+                    currentlyDisplayedImg.setImageBitmap(scaleCenterCrop(imageSet.get(pageIndex), 380, 380));
                     //gross code i know, but probably implementing it with viewpager this is just temporary
                     if (pageIndex == 1) {
                         swipeInfoMessage.setVisibility(View.GONE);
@@ -223,8 +238,7 @@ public class RecordingActivity extends AppCompatActivity {
             public void onSwipeRight() {
                 if (pageIndex > 0) {
                     pageIndex--;
-                    Picasso.get().load(imageSet.get(pageIndex)).fit()
-                            .centerCrop().into(currentlyDisplayedImg);
+                    currentlyDisplayedImg.setImageBitmap(scaleCenterCrop(imageSet.get(pageIndex), 380, 380));
                     if (pageIndex == 0) {
                         swipeInfoMessage.setVisibility(View.GONE);
                         statusBar2.setImageResource(R.drawable.status_tabs);
@@ -255,17 +269,38 @@ public class RecordingActivity extends AppCompatActivity {
                 statusBar3.setAlpha((float) .5);
                 statusBar4.setAlpha((float) .5);
                 footer.setAlpha((float) .5);
+
                 confirmButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         timer.start();
-
-                        // Stop Recording
                         stopRecording();
 
-                        // Uncomment line below to play recording in another activity
-                        //playRecording();
+                        //TODO: stop recording/save recording
+                        saveText.setVisibility(View.GONE);
+                        cancelButton.setVisibility(View.GONE);
+                        confirmButton.setVisibility(View.GONE);
 
-                        //TODO: show title popup
+                        Animation anim = new ScaleAnimation(
+                                1f, 1f, // Start and end values for the X axis scaling
+                                1f, 0.65f, // Start and end values for the Y axis scaling
+                                Animation.RELATIVE_TO_SELF, 0f, // Pivot point of X scaling
+                                Animation.RELATIVE_TO_SELF, 0f); // Pivot point of Y scaling
+                        anim.setFillAfter(true); // Needed to keep the result of the animation
+                        anim.setDuration(300);
+                        popupBG.startAnimation(anim);
+                        titleText.setVisibility(View.VISIBLE);
+                        titleEditText.setVisibility(View.VISIBLE);
+                        doneButton.setVisibility(View.VISIBLE);
+                        doneButton.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View v) {
+                                //TODO: Add file by calling setFilename
+                                videoToBeSaved.setTitle(titleEditText.getText().toString());
+                                videoToBeSaved.setFilename("TODO");
+                                savedVideosList.add(videoToBeSaved);
+                                Intent intent = new Intent(RecordingActivity.this, ListenActivity.class);
+                                startActivity(intent);
+                            }
+                        });
                     }
                 });
                 cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -299,11 +334,13 @@ public class RecordingActivity extends AppCompatActivity {
                 statusBar3.setAlpha((float) .5);
                 statusBar4.setAlpha((float) .5);
                 footer.setAlpha((float) .5);
+
                 confirmButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         //TODO: stop recording/discard
                         stopRecording();
-                        Intent intent = new Intent(RecordingActivity.this, MainActivity.class);
+
+                        Intent intent = new Intent(RecordingActivity.this, LandingPageActivity.class);
                         startActivity(intent);
                     }
                 });
@@ -323,7 +360,39 @@ public class RecordingActivity extends AppCompatActivity {
                 });
             }
         });
+    }
 
+    private Bitmap scaleCenterCrop(Bitmap source, int newHeight, int newWidth) {
+        int sourceWidth = source.getWidth();
+        int sourceHeight = source.getHeight();
+
+        // Compute the scaling factors to fit the new height and width, respectively.
+        // To cover the final image, the final scaling will be the bigger
+        // of these two.
+        float xScale = (float) newWidth / sourceWidth;
+        float yScale = (float) newHeight / sourceHeight;
+        float scale = Math.max(xScale, yScale);
+
+        // Now get the size of the source bitmap when scaled
+        float scaledWidth = scale * sourceWidth;
+        float scaledHeight = scale * sourceHeight;
+
+        // Let's find out the upper left coordinates if the scaled bitmap
+        // should be centered in the new size give by the parameters
+        float left = (newWidth - scaledWidth) / 2;
+        float top = (newHeight - scaledHeight) / 2;
+
+        // The target rectangle for the new, scaled version of the source bitmap will now
+        // be
+        RectF targetRect = new RectF(left, top, left + scaledWidth, top + scaledHeight);
+
+        // Finally, we create a new bitmap of the specified size and draw our new,
+        // scaled bitmap onto it.
+        Bitmap dest = Bitmap.createBitmap(newWidth, newHeight, source.getConfig());
+        Canvas canvas = new Canvas(dest);
+        canvas.drawBitmap(source, null, targetRect, null);
+
+        return dest;
     }
 
     // Initialize media recorder, virtual device, and begins recording the screen
