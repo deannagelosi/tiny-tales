@@ -17,11 +17,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
+
 import java.util.ArrayList;
 
 public class RecordingActivity extends Activity {
 
     public static ArrayList<Bitmap> imageSet;
+    public static ArrayList<SavedVideo> savedVideosList = new ArrayList<SavedVideo>();
+    private SavedVideo videoToBeSaved;
 
     private ImageView homeButton;
     private RelativeLayout popup;
@@ -57,6 +60,8 @@ public class RecordingActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recording);
+
+        videoToBeSaved = new SavedVideo();
 
         homeButton = findViewById(R.id.homeButton);
         popup = findViewById(R.id.popup);
@@ -98,6 +103,7 @@ public class RecordingActivity extends Activity {
         Intent intent = getIntent();
         imageSet = LandingPageActivity.allStoriesList.get(intent.getIntExtra("story-index", 0));
         currentlyDisplayedImg.setImageBitmap(scaleCenterCrop(imageSet.get(0), 380, 380));
+        videoToBeSaved.setCoverImage(scaleCenterCrop(imageSet.get(0), 380, 380));
 
         startRecordingButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -185,7 +191,10 @@ public class RecordingActivity extends Activity {
                         doneButton.setVisibility(View.VISIBLE);
                         doneButton.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View v) {
-                                //TODO: Add story to list of finished stories
+                                //TODO: Add file by calling setFilename
+                                videoToBeSaved.setTitle(titleEditText.getText().toString());
+                                videoToBeSaved.setFilename("TODO");
+                                savedVideosList.add(videoToBeSaved);
                                 Intent intent = new Intent(RecordingActivity.this, ListenActivity.class);
                                 startActivity(intent);
                             }

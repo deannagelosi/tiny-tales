@@ -25,4 +25,6 @@
     <string name="dialog_select_gallery">Gallery</string>
 
     <string name="image_picker_error">Something is wrong with that image. Pick a different one please.</string>
+    <string name="filler_title">story title</string>
+
 </resources>

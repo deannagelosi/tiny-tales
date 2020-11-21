@@ -97,8 +97,9 @@
 
                     <ImageView
                         android:id="@+id/topLeftImage"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="170dp"
+                        android:layout_height="170dp"
+                        android:layout_gravity="center"
                         android:src="@drawable/filler_image_1" />
                 </androidx.cardview.widget.CardView>
 
@@ -112,8 +113,9 @@
 
                     <ImageView
                         android:id="@+id/topRightImage"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="170dp"
+                        android:layout_height="170dp"
+                        android:layout_gravity="center"
                         android:src="@drawable/filler_image_2" />
                 </androidx.cardview.widget.CardView>
             </TableRow>
@@ -133,8 +135,9 @@
 
                     <ImageView
                         android:id="@+id/bottomLeftImage"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="170dp"
+                        android:layout_height="170dp"
+                        android:layout_gravity="center"
                         android:src="@drawable/filler_image_3" />
                 </androidx.cardview.widget.CardView>
 
