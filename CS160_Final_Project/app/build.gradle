@@ -5,7 +5,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.cs160_final_project"
-        minSdkVersion 23
+        minSdkVersion 24
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -27,6 +27,7 @@ dependencies {
     implementation'androidx.cardview:cardview:1.0.0'
     implementation 'com.squareup.picasso:picasso:2.8'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
