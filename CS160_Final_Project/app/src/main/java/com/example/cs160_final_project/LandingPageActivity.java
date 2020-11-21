@@ -88,7 +88,7 @@ public class LandingPageActivity extends Activity {
 
         //Setting the option images
         topLeftImage.setImageBitmap(scaleCenterCrop(allStoriesList.get(0).get(0), 170, 170));
-        topRightImage.setImageBitmap(scaleCenterCrop(allStoriesList.get(1).get(0), 10, 170));
+        topRightImage.setImageBitmap(scaleCenterCrop(allStoriesList.get(1).get(0), 170, 170));
         bottomLeftImage.setImageBitmap(scaleCenterCrop(allStoriesList.get(2).get(0), 170, 170));
 
 
