@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -15,13 +16,16 @@
         <RelativeLayout
             android:layout_width="391dp"
             android:layout_height="500dp"
-            android:layout_marginTop="100dp"
-            android:gravity="start"
-            android:layout_gravity="center">
+            android:layout_gravity="center_horizontal|top"
+            android:layout_marginTop="50dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="@string/tiny_tales"
                 android:textAlignment="center"
@@ -31,89 +35,91 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="80dp"
-                android:textAlignment="center"
+                android:layout_marginTop="100dp"
                 android:background="@drawable/circle_background"
-                android:orientation="vertical" />
+                android:orientation="vertical"
+                android:textAlignment="center" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="150dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="170dp"
+                android:gravity="center_vertical">
 
-                    <ImageView
-                        android:layout_width="44dp"
-                        android:layout_height="45dp"
-                        android:layout_marginLeft="75dp"
-                        android:src="@drawable/add_photos_icon" />
-                    
-                    <TextView
-                        android:layout_width="200dp"
-                        android:layout_height="45dp"
-                        android:layout_marginLeft="30dp"
-                        android:text="@string/add_photos"
-                        android:fontFamily="@font/roboto_bold"
-                        android:textSize="24sp"
-                        android:textColor="#393A3C" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="210dp">
-
-                    <TextView
-                        android:layout_width="250dp"
-                        android:layout_height="55dp"
-                        android:layout_marginLeft="30dp"
-                        android:gravity="right"
-                        android:text="@string/random"
-                        android:fontFamily="@font/roboto_bold"
-                        android:textSize="24sp"
-                        android:textColor="#393A3C" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="25dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/question_mark" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="300dp">
-
-                    <ImageView
-                        android:layout_width="44dp"
-                        android:layout_height="45dp"
-                        android:layout_marginLeft="30dp"
-                        android:src="@drawable/record_button" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="60dp"
-                        android:layout_marginLeft="30dp"
-                        android:text="@string/record"
-                        android:fontFamily="@font/roboto_bold"
-                        android:textSize="24sp"
-                        android:textColor="#393A3C" />
-
-                </LinearLayout>
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="80dp"
+                    android:src="@drawable/add_photos_icon" />
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="390dp"
-                    android:layout_marginLeft="60dp"
-                    android:text="@string/swipe"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
                     android:fontFamily="@font/roboto_bold"
-                    android:textSize="24sp"
-                    android:textColor="#393A3C" />
-            
+                    android:text="@string/add_photos"
+                    android:textColor="#393A3C"
+                    android:textSize="24sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="230dp">
+
+                <TextView
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="right"
+                    android:text="@string/random"
+                    android:textColor="#393A3C"
+                    android:textSize="24sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/question_mark" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="310dp"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="40dp"
+                    android:src="@drawable/record_button" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="@string/record"
+                    android:textColor="#393A3C"
+                    android:textSize="24sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="390dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@string/swipe"
+                android:textColor="#393A3C"
+                android:textSize="24sp" />
+
         </RelativeLayout>
 
     </LinearLayout>
@@ -121,18 +127,18 @@
     <ImageView
         android:layout_width="145dp"
         android:layout_height="249dp"
-        android:layout_marginTop="500dp"
         android:layout_marginLeft="280dp"
+        android:layout_marginTop="470dp"
         android:src="@drawable/cat_paw" />
-    
+
     <TextView
         android:layout_width="183dp"
         android:layout_height="30dp"
-        android:layout_marginTop="625dp"
         android:layout_marginLeft="80dp"
-        android:text="@string/tap"
+        android:layout_marginTop="605dp"
         android:fontFamily="@font/roboto_italic"
-        android:textSize="24sp"
-        android:textColor="#393A3C" />
+        android:text="@string/tap"
+        android:textColor="#393A3C"
+        android:textSize="24sp" />
 
 </RelativeLayout>
