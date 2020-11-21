@@ -79,7 +79,7 @@ public class LandingPageActivity extends Activity {
     private ImageView listenTab;
 
     //To store our 4 arraylists filled with the corresponding story pictures used in recording
-    public static ArrayList<ArrayList<Bitmap>> allStoriesList;
+    // public static ArrayList<ArrayList<Bitmap>> allStoriesList;
 
     //individual story arraylists
     private ArrayList<Bitmap> topLeftStoryList;
@@ -92,7 +92,7 @@ public class LandingPageActivity extends Activity {
     public ArrayList<Bitmap> stockPictures = new ArrayList<>();
     public ArrayList<Set> userLabels = new ArrayList<>();
     public ArrayList<Set> stockLabels = new ArrayList<>();
-    public ArrayList<ArrayList<Bitmap>> stories = new ArrayList<>();
+    public static ArrayList<ArrayList<Bitmap>> allStoriesList = new ArrayList<>();
     // END BACKEND
 
     // BEGIN BACKEND: CV instance variables
@@ -148,8 +148,6 @@ public class LandingPageActivity extends Activity {
         bottomLeftImage = findViewById(R.id.bottomLeftImage);
 
         listenTab = findViewById(R.id.listenTab);
-
-        allStoriesList = new ArrayList<ArrayList<Bitmap>>();
 
         topLeftStoryList = new ArrayList<Bitmap>();
         topRightStoryList = new ArrayList<Bitmap>();
@@ -486,12 +484,12 @@ public class LandingPageActivity extends Activity {
     // BEGIN ALGORITHMS
     // BACKEND: Generate content in this.stories (called once by onCreate)
     private void populateStories() {
-        stories.clear();
+        allStoriesList.clear();
         for (int i = 0; i < 4; i++) {
             ArrayList<Bitmap> story = Tools.generateStories(userPictures,stockPictures,userLabels,stockLabels);
-            stories.add(story);
+            allStoriesList.add(story);
         }
-        Log.println(VERBOSE, "debug", "New stories: " + stories.toString());
+        Log.println(VERBOSE, "debug", "New stories: " + allStoriesList.toString());
     }
 
     // BACKEND: Add labels to stock images
