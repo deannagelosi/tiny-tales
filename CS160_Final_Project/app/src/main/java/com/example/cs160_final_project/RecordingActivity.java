@@ -17,11 +17,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RecordingActivity extends Activity {
 
     public static ArrayList<Bitmap> imageSet;
+    public static ArrayList<String> savedVideosList;
+    public static ArrayList<String> savedVideoTitlesList;
 
     private ImageView homeButton;
     private RelativeLayout popup;
@@ -57,6 +61,9 @@ public class RecordingActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recording);
+
+        savedVideosList = new ArrayList<String>();
+        savedVideoTitlesList = new ArrayList<String>();
 
         homeButton = findViewById(R.id.homeButton);
         popup = findViewById(R.id.popup);
@@ -185,7 +192,9 @@ public class RecordingActivity extends Activity {
                         doneButton.setVisibility(View.VISIBLE);
                         doneButton.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View v) {
-                                //TODO: Add story to list of finished stories
+                                //TODO: Add file to savedVideosList
+                                savedVideoTitlesList.add(titleEditText.getText().toString());
+                                savedVideosList.add("TODO");
                                 Intent intent = new Intent(RecordingActivity.this, ListenActivity.class);
                                 startActivity(intent);
                             }
@@ -222,6 +231,7 @@ public class RecordingActivity extends Activity {
                 confirmButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         //TODO: stop recording/discard
+
                         Intent intent = new Intent(RecordingActivity.this, LandingPageActivity.class);
                         startActivity(intent);
                     }
