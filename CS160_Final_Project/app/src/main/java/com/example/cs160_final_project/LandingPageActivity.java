@@ -119,6 +119,17 @@ public class LandingPageActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing_page);
 
+        topLeftChoice = findViewById(R.id.topLeftChoice);
+        topRightChoice = findViewById(R.id.topRightChoice);
+        bottomLeftChoice = findViewById(R.id.bottomLeftChoice);
+        bottomRightChoice = findViewById(R.id.bottomRightChoice);
+
+        topLeftImage = findViewById(R.id.topLeftImage);
+        topRightImage = findViewById(R.id.topRightImage);
+        bottomLeftImage = findViewById(R.id.bottomLeftImage);
+
+        listenTab = findViewById(R.id.listenTab);
+
         // BEGIN BACKEND: Setup stories, images
         setupStock();
         populateStories();
@@ -140,17 +151,7 @@ public class LandingPageActivity extends Activity {
         });
         // END BACKEND
 
-        topLeftChoice = findViewById(R.id.topLeftChoice);
-        topRightChoice = findViewById(R.id.topRightChoice);
-        bottomLeftChoice = findViewById(R.id.bottomLeftChoice);
-        bottomRightChoice = findViewById(R.id.bottomRightChoice);
-
-        topLeftImage = findViewById(R.id.topLeftImage);
-        topRightImage = findViewById(R.id.topRightImage);
-        bottomLeftImage = findViewById(R.id.bottomLeftImage);
-
-        listenTab = findViewById(R.id.listenTab);
-
+        /*
         topLeftStoryList = new ArrayList<Bitmap>();
         topRightStoryList = new ArrayList<Bitmap>();
         bottomLeftStoryList = new ArrayList<Bitmap>();
@@ -161,6 +162,7 @@ public class LandingPageActivity extends Activity {
         allStoriesList.add(bottomLeftStoryList);
         allStoriesList.add(bottomRightStoryList);
 
+        
         //TODO: Generate all 4 stories, set tag, and add to arraylist, probably make this a function
         //temporarily hardcoding in the top left story
         allStoriesList.get(0).add(BitmapFactory.decodeResource(this.getResources(), R.drawable.story_filler_1));
@@ -171,11 +173,12 @@ public class LandingPageActivity extends Activity {
         //just the first image for the 2 other stories so I can "set" it
         allStoriesList.get(1).add(BitmapFactory.decodeResource(this.getResources(), R.drawable.filler_image_2));
         allStoriesList.get(2).add(BitmapFactory.decodeResource(this.getResources(), R.drawable.filler_image_3));
+        */
 
         //Setting the option images
-        topLeftImage.setImageBitmap(scaleCenterCrop(allStoriesList.get(0).get(0), 170, 170));
-        topRightImage.setImageBitmap(scaleCenterCrop(allStoriesList.get(1).get(0), 170, 170));
-        bottomLeftImage.setImageBitmap(scaleCenterCrop(allStoriesList.get(2).get(0), 170, 170));
+        //topLeftImage.setImageBitmap(scaleCenterCrop(allStoriesList.get(0).get(0), 170, 170));
+        //topRightImage.setImageBitmap(scaleCenterCrop(allStoriesList.get(1).get(0), 170, 170));
+        //bottomLeftImage.setImageBitmap(scaleCenterCrop(allStoriesList.get(2).get(0), 170, 170));
 
 
         /* TODO: remove this later
@@ -533,6 +536,10 @@ public class LandingPageActivity extends Activity {
             allStoriesList.add(story);
         }
         Log.println(VERBOSE, "debug", "New stories: " + allStoriesList.toString());
+
+        topLeftImage.setImageBitmap(scaleCenterCrop(allStoriesList.get(0).get(0), 170, 170));
+        topRightImage.setImageBitmap(scaleCenterCrop(allStoriesList.get(1).get(0), 170, 170));
+        bottomLeftImage.setImageBitmap(scaleCenterCrop(allStoriesList.get(2).get(0), 170, 170));
     }
 
     // BACKEND: Add labels to stock images
