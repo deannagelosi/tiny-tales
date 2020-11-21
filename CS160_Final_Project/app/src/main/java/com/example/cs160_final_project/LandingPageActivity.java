@@ -44,7 +44,7 @@ public class LandingPageActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_landing_page);
 
         addPhotosButton = findViewById(R.id.addPhotoButton);
         refreshButton = findViewById(R.id.refreshButton);
@@ -80,7 +80,15 @@ public class LandingPageActivity extends Activity {
         allStoriesList.get(0).add(BitmapFactory.decodeResource(this.getResources(),R.drawable.story_filler_3));
         allStoriesList.get(0).add(BitmapFactory.decodeResource(this.getResources(), R.drawable.story_filler_4));
 
-        //TODO: Display the first 3 images's
+        //just the first image for the 2 other stories so I can "set" it
+        allStoriesList.get(1).add(BitmapFactory.decodeResource(this.getResources(), R.drawable.filler_image_2));
+        allStoriesList.get(2).add(BitmapFactory.decodeResource(this.getResources(), R.drawable.filler_image_3));
+
+        //Setting the option images
+        topLeftImage.setImageBitmap(allStoriesList.get(0).get(0));
+        topRightImage.setImageBitmap(allStoriesList.get(1).get(0));
+        bottomLeftImage.setImageBitmap(allStoriesList.get(2).get(0));
+
 
         addPhotosButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
