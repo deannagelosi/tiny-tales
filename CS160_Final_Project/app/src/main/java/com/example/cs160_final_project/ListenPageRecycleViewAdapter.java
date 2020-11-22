@@ -1,5 +1,6 @@
 package com.example.cs160_final_project;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,9 @@ public class ListenPageRecycleViewAdapter extends RecyclerView.Adapter<ListenPag
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
      */
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    // NOTE: I (Angel) removed the static so I can reference the videoList variable in order to
+    //          identify which saved video was selected
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView videoImage;
         private TextView storyTitle;
         private ImageView videoOptions;
@@ -32,7 +35,12 @@ public class ListenPageRecycleViewAdapter extends RecyclerView.Adapter<ListenPag
 
             videoImage.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    //TODO: play video
+
+                    // Playing Video
+                    SavedVideo video = videosList.get(getAdapterPosition());
+                    Intent intent = new Intent(v.getContext(), PlayRecordingActivity.class);
+                    intent.putExtra("videoPath", video.getFilename());
+                    v.getContext().startActivity(intent);
                 }
             });
 

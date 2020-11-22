@@ -25,6 +25,7 @@
         <activity android:name=".WaitActivity"/>
         <activity android:name=".ListenActivity" />
         <activity android:name=".RecordingActivity" />
+        <activity android:name=".PlayRecordingActivity"/>
         <activity android:name=".LandingPageActivity">
         </activity>
 
