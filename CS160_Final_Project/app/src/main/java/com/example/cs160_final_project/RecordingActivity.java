@@ -1,15 +1,6 @@
 package com.example.cs160_final_project;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.cardview.widget.CardView;
-
-  
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -26,10 +17,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.util.SparseIntArray;
-import android.view.animation.Animation;
-import android.view.animation.ScaleAnimation;
 import android.view.Surface;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -37,9 +28,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.google.android.material.snackbar.Snackbar;
 
-import java.util.ArrayList;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -85,8 +82,6 @@ public class RecordingActivity extends AppCompatActivity {
 
     private int pageIndex = 0;
 
-
-
     // Recording Variables
     private static final SparseIntArray ORIENTATION = new SparseIntArray();
     private MediaProjectionManager mediaProjectionManager;
@@ -98,8 +93,8 @@ public class RecordingActivity extends AppCompatActivity {
     private static final int DISPLAY_WIDTH = 720;
     private static final int DISPLAY_HEIGHT = 1280;
     private RelativeLayout rootLayout;
-    private String videoUrl = "";
-    private int recordingCounter = 0;
+    private String videoPath = "";
+    private int videoCounter = 0;
 
     static {
         ORIENTATION.append(Surface.ROTATION_0, 90);
@@ -141,7 +136,6 @@ public class RecordingActivity extends AppCompatActivity {
         stopwatchText = findViewById(R.id.stopwatchText);
 
         theEndText = findViewById(R.id.theEndTextView);
-
 
         // Getting device's screen density
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -202,6 +196,8 @@ public class RecordingActivity extends AppCompatActivity {
 
                     }
                 } else {
+
+                    // Begin recording
                     timer.start();
                     currentlyDisplayedImg.setAlpha((float) 1.0);
                     startRecordingButton.setVisibility(View.GONE);
@@ -257,9 +253,9 @@ public class RecordingActivity extends AppCompatActivity {
         stopRecordingButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-
                 // Pause Recording
                 mediaRecorder.pause();
+
                 popup.setVisibility(View.VISIBLE);
                 saveText.setVisibility(View.VISIBLE);
                 homeButton.setAlpha((float) .5);
@@ -273,9 +269,9 @@ public class RecordingActivity extends AppCompatActivity {
                 confirmButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         timer.start();
-                        stopRecording();
 
-                        //TODO: stop recording/save recording
+                        // Stop and save recording
+                        stopRecording();
                         saveText.setVisibility(View.GONE);
                         cancelButton.setVisibility(View.GONE);
                         confirmButton.setVisibility(View.GONE);
@@ -293,9 +289,8 @@ public class RecordingActivity extends AppCompatActivity {
                         doneButton.setVisibility(View.VISIBLE);
                         doneButton.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View v) {
-                                //TODO: Add file by calling setFilename
                                 videoToBeSaved.setTitle(titleEditText.getText().toString());
-                                videoToBeSaved.setFilename("TODO");
+                                videoToBeSaved.setFilename(videoPath);
                                 savedVideosList.add(videoToBeSaved);
                                 Intent intent = new Intent(RecordingActivity.this, ListenActivity.class);
                                 startActivity(intent);
@@ -409,8 +404,8 @@ public class RecordingActivity extends AppCompatActivity {
             mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
 
             // Video's Path
-            videoUrl = Environment.getExternalStorageDirectory().getAbsolutePath() //getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
-                        + new StringBuilder("/ScreenRecording-#" + recordingCounter + "-").append(new SimpleDateFormat("dd-MM-yyy-hh_mm_ss")
+            videoPath = Environment.getExternalStorageDirectory().getAbsolutePath() //getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
+                        + new StringBuilder("/ScreenRecording-#" + videoCounter + "-").append(new SimpleDateFormat("dd-MM-yyy-hh_mm_ss")
                             .format(new Date())).append(".mp4").toString();
 
             mediaRecorder.setVideoSize(DISPLAY_WIDTH, DISPLAY_HEIGHT);
@@ -418,7 +413,7 @@ public class RecordingActivity extends AppCompatActivity {
             mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
             mediaRecorder.setVideoEncodingBitRate(512 * 1000);
             mediaRecorder.setVideoFrameRate(30);
-            mediaRecorder.setOutputFile(videoUrl);
+            mediaRecorder.setOutputFile(videoPath);
 
 
             int rotation = getWindowManager().getDefaultDisplay().getRotation();
@@ -454,6 +449,7 @@ public class RecordingActivity extends AppCompatActivity {
         mediaRecorder.stop();
         mediaRecorder.release();
         stopRecordScreen();
+        videoCounter ++;
     }
 
     // Stops and releases Virtual Display
@@ -473,14 +469,6 @@ public class RecordingActivity extends AppCompatActivity {
             mediaProjection = null;
         }
     }
-
-    // Used as a test to play the recording of the video in the PlayRecording Activity
-    private void playRecording() {
-        Intent intent = new Intent(RecordingActivity.this, PlayRecording.class);
-        intent.putExtra("path", videoUrl);
-        startActivity(intent);
-    }
-
 
     private class MediaProjectionCallback extends MediaProjection.Callback {
 
