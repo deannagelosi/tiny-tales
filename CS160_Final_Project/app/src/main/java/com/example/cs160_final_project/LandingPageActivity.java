@@ -90,9 +90,9 @@ public class LandingPageActivity extends Activity {
     private ArrayList<Bitmap> bottomRightStoryList;
 
     // BEGIN BACKEND: where the images and labels will be stored
-    public ArrayList<Bitmap> userPictures = new ArrayList<>();
+    public static ArrayList<Bitmap> userPictures = new ArrayList<>();
     public ArrayList<Bitmap> stockPictures = new ArrayList<>();
-    public ArrayList<Set> userLabels = new ArrayList<>();
+    public static ArrayList<Set> userLabels = new ArrayList<>();
     public ArrayList<Set> stockLabels = new ArrayList<>();
     public static ArrayList<ArrayList<Bitmap>> allStoriesList = new ArrayList<>();
     // END BACKEND
