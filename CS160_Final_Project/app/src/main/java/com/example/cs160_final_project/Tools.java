@@ -35,7 +35,7 @@ public class Tools {
         duplicates.add(max_ind);
         return max_ind;
     }
-    static ArrayList<Bitmap> generateStories(ArrayList<Bitmap> userPictures, ArrayList<Bitmap> stockPictures, ArrayList<Set> userLabels, ArrayList<Set> stockLabels) {
+    static ArrayList<Bitmap> generateStories(ArrayList<Bitmap> userPictures, ArrayList<Bitmap> stockPictures, ArrayList<Set> userLabels, ArrayList<Set> stockLabels, ArrayList<Integer> firstStories) {
         Random rand = new Random();
         ArrayList<Bitmap> combinedPictures = new ArrayList<>(userPictures);
         combinedPictures.addAll(stockPictures);
@@ -44,10 +44,12 @@ public class Tools {
 
         ArrayList<Integer> duplicates = new ArrayList<>();
         int index;
-        if (userPictures.size() > 0) {
-            index = rand.nextInt(userPictures.size());
+        if (firstStories.size() > 0) {
+            int i = rand.nextInt(firstStories.size());
+            index = firstStories.get(i);
+            firstStories.remove(i);
         } else {
-            index = rand.nextInt(stockPictures.size());
+            index = userPictures.size() + rand.nextInt(stockPictures.size());
         }
         duplicates.add(index);
         for (int i = 0; i < 3; i++) {
