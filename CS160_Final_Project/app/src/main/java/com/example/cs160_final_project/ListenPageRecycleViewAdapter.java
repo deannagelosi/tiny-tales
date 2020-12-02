@@ -19,8 +19,6 @@ public class ListenPageRecycleViewAdapter extends RecyclerView.Adapter<ListenPag
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
      */
-    // NOTE: I (Angel) removed the static so I can reference the videoList variable in order to
-    //          identify which saved video was selected
     public class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView videoImage;
         private TextView storyTitle;
@@ -80,11 +78,8 @@ public class ListenPageRecycleViewAdapter extends RecyclerView.Adapter<ListenPag
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-
-        for (int i = 0; i < videosList.size(); i++) {
-            viewHolder.getVideoImageView().setImageBitmap(videosList.get(i).getCoverImage());
-            viewHolder.getStoryTitleTextView().setText(videosList.get(i).getTitle());
-        }
+        viewHolder.getVideoImageView().setImageBitmap(videosList.get(position).getCoverImage());
+        viewHolder.getStoryTitleTextView().setText(videosList.get(position).getTitle());
     }
 
     // Return the size of your dataset (invoked by the layout manager)

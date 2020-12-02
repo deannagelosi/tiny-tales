@@ -94,7 +94,6 @@ public class RecordingActivity extends AppCompatActivity {
     private static final int DISPLAY_HEIGHT = 1280;
     private RelativeLayout rootLayout;
     private String videoPath = "";
-    private int videoCounter = 0;
 
     static {
         ORIENTATION.append(Surface.ROTATION_0, 90);
@@ -252,7 +251,6 @@ public class RecordingActivity extends AppCompatActivity {
 
         stopRecordingButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 // Pause Recording
                 mediaRecorder.pause();
 
@@ -268,10 +266,10 @@ public class RecordingActivity extends AppCompatActivity {
 
                 confirmButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        timer.start();
-
                         // Stop and save recording
+                        timer.cancel();
                         stopRecording();
+
                         saveText.setVisibility(View.GONE);
                         cancelButton.setVisibility(View.GONE);
                         confirmButton.setVisibility(View.GONE);
@@ -312,6 +310,7 @@ public class RecordingActivity extends AppCompatActivity {
 
                         // Resume Recording
                         mediaRecorder.resume();
+                        timer.start();
 
                     }
                 });
@@ -405,7 +404,7 @@ public class RecordingActivity extends AppCompatActivity {
 
             // Video's Path
             videoPath = Environment.getExternalStorageDirectory().getAbsolutePath() //getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
-                        + new StringBuilder("/ScreenRecording-#" + videoCounter + "-").append(new SimpleDateFormat("dd-MM-yyy-hh_mm_ss")
+                        + new StringBuilder("/ScreenRecording-").append(new SimpleDateFormat("dd-MM-yyy-hh_mm_ss")
                             .format(new Date())).append(".mp4").toString();
 
             mediaRecorder.setVideoSize(DISPLAY_WIDTH, DISPLAY_HEIGHT);
@@ -449,7 +448,6 @@ public class RecordingActivity extends AppCompatActivity {
         mediaRecorder.stop();
         mediaRecorder.release();
         stopRecordScreen();
-        videoCounter ++;
     }
 
     // Stops and releases Virtual Display
