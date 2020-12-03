@@ -407,7 +407,7 @@ public class RecordingActivity extends AppCompatActivity {
             mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
 
             // Video's Path
-            videoPath = Environment.getExternalStorageDirectory().getAbsolutePath() //getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
+            videoPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
                         + new StringBuilder("/ScreenRecording-").append(new SimpleDateFormat("dd-MM-yyy-hh_mm_ss")
                             .format(new Date())).append(".mp4").toString();
 
