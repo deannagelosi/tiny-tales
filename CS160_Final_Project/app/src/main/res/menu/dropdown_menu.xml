@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/rename"
+        android:title="@string/rename"/>
+    <item android:id="@+id/delete"
+        android:title="@string/delete" />
+</menu>
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--        android:id="@+id/dropdown"-->
+<!--        android:layout_width="111dp"-->
+<!--        android:layout_height="92dp"-->
+<!--        android:layout_alignParentEnd="false"-->
+<!--        android:layout_centerVertical="false"-->
+<!--        android:layout_marginStart="70dp"-->
+<!--        android:layout_marginTop="180dp"-->
+<!--        android:background="@drawable/dropdown_bg"-->
+<!--        android:elevation="7dp"-->
+<!--        android:orientation="vertical">-->
+
+<!--        <FrameLayout-->
+<!--            android:id="@+id/renameButton"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="43dp">-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:text="@string/rename" />-->
+<!--        </FrameLayout>-->
+
+<!--        <FrameLayout-->
+<!--            android:id="@+id/deleteButton"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="43dp">-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:text="@string/delete" />-->
+<!--        </FrameLayout>-->
+
+<!--</LinearLayout>-->

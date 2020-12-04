@@ -26,5 +26,7 @@
 
     <string name="image_picker_error">Something is wrong with that image. Pick a different one please.</string>
     <string name="filler_title">story title</string>
+    <string name="rename">rename</string>
+    <string name="delete">delete</string>
 
 </resources>
