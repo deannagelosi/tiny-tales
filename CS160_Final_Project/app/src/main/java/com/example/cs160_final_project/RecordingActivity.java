@@ -1,5 +1,6 @@
 package com.example.cs160_final_project;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +10,6 @@ import android.graphics.Canvas;
 import android.graphics.RectF;
 import android.hardware.display.DisplayManager;
 import android.hardware.display.VirtualDisplay;
-import android.Manifest;
 import android.media.MediaRecorder;
 import android.media.projection.MediaProjection;
 import android.media.projection.MediaProjectionManager;
@@ -94,7 +94,7 @@ public class RecordingActivity extends AppCompatActivity {
     private static final int DISPLAY_HEIGHT = 1280;
     private RelativeLayout rootLayout;
     private String videoPath = "";
-    private int videoCounter = 0;
+
 
     static {
         ORIENTATION.append(Surface.ROTATION_0, 90);
@@ -142,7 +142,7 @@ public class RecordingActivity extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getRealMetrics(displayMetrics);
         screenDensity = displayMetrics.densityDpi;
 
-        // Initializing private variables
+        // Initializing screen recording variables
         mediaRecorder = new MediaRecorder();
         mediaProjectionManager = (MediaProjectionManager) getSystemService(Context.MEDIA_PROJECTION_SERVICE);
         rootLayout = findViewById(R.id.rootLayout);
@@ -197,6 +197,13 @@ public class RecordingActivity extends AppCompatActivity {
                     }
                 } else {
 
+                    // Creating a notification stating that the recording will start
+                    // (House Keeping stuff to use Media Projection)
+                    startService(v);
+
+                    // Initializing mediaRecorder
+                    initRecorder();
+
                     // Begin recording
                     timer.start();
                     currentlyDisplayedImg.setAlpha((float) 1.0);
@@ -205,7 +212,7 @@ public class RecordingActivity extends AppCompatActivity {
                     statusBar1.setImageResource(R.drawable.page_started_tab);
                     recordingStarted = true;
                     swipeInfoMessage.setVisibility(View.VISIBLE);
-                    record();
+                    recordScreen();
                 }
             }
         });
@@ -252,7 +259,6 @@ public class RecordingActivity extends AppCompatActivity {
 
         stopRecordingButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 // Pause Recording
                 mediaRecorder.pause();
 
@@ -268,10 +274,11 @@ public class RecordingActivity extends AppCompatActivity {
 
                 confirmButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        timer.start();
-
                         // Stop and save recording
+                        timer.cancel();
                         stopRecording();
+                        stopService(v);
+
                         saveText.setVisibility(View.GONE);
                         cancelButton.setVisibility(View.GONE);
                         confirmButton.setVisibility(View.GONE);
@@ -312,6 +319,7 @@ public class RecordingActivity extends AppCompatActivity {
 
                         // Resume Recording
                         mediaRecorder.resume();
+                        timer.start();
 
                     }
                 });
@@ -332,8 +340,8 @@ public class RecordingActivity extends AppCompatActivity {
 
                 confirmButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        //TODO: stop recording/discard
                         stopRecording();
+                        stopService(v);
 
                         Intent intent = new Intent(RecordingActivity.this, LandingPageActivity.class);
                         startActivity(intent);
@@ -356,6 +364,7 @@ public class RecordingActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private Bitmap scaleCenterCrop(Bitmap source, int newHeight, int newWidth) {
         int sourceWidth = source.getWidth();
@@ -390,12 +399,6 @@ public class RecordingActivity extends AppCompatActivity {
         return dest;
     }
 
-    // Initialize media recorder, virtual device, and begins recording the screen
-    private void record() {
-        initRecorder();
-        recordScreen();
-    }
-
     // Initializes media recorder which is the object that does the recording
     private void initRecorder() {
         try {
@@ -404,8 +407,8 @@ public class RecordingActivity extends AppCompatActivity {
             mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
 
             // Video's Path
-            videoPath = Environment.getExternalStorageDirectory().getAbsolutePath() //getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
-                        + new StringBuilder("/ScreenRecording-#" + videoCounter + "-").append(new SimpleDateFormat("dd-MM-yyy-hh_mm_ss")
+            videoPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
+                        + new StringBuilder("/ScreenRecording-").append(new SimpleDateFormat("dd-MM-yyy-hh_mm_ss")
                             .format(new Date())).append(".mp4").toString();
 
             mediaRecorder.setVideoSize(DISPLAY_WIDTH, DISPLAY_HEIGHT);
@@ -449,7 +452,6 @@ public class RecordingActivity extends AppCompatActivity {
         mediaRecorder.stop();
         mediaRecorder.release();
         stopRecordScreen();
-        videoCounter ++;
     }
 
     // Stops and releases Virtual Display
@@ -494,7 +496,8 @@ public class RecordingActivity extends AppCompatActivity {
 
             case REQUEST_PERMISSION: {
                 if (grantResults.length > 0 && (grantResults[0] + grantResults[1] == PackageManager.PERMISSION_GRANTED)) {
-                    record();
+                    initRecorder();
+                    recordScreen();
                 } else {
                     recordingStarted = false;
                     Snackbar.make(rootLayout, "Permission", Snackbar.LENGTH_INDEFINITE)
@@ -528,11 +531,20 @@ public class RecordingActivity extends AppCompatActivity {
             Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
             return;
         }
-
         mediaProjectionCallBack = new MediaProjectionCallback();
         mediaProjection = mediaProjectionManager.getMediaProjection(resultCode, data);
         mediaProjection.registerCallback(mediaProjectionCallBack, null);
         virtualDisplay = createVirtualDisplay();
         mediaRecorder.start();
+    }
+
+    public void startService(View v) {
+        Intent serviceIntent = new Intent(this, RecordingNotificationService.class);
+        serviceIntent.putExtra("message", "Screen Record will begin");
+        ContextCompat.startForegroundService(this, serviceIntent);
+    }
+    public void stopService(View v) {
+        Intent serviceIntent = new Intent(this, RecordingNotificationService.class);
+        stopService(serviceIntent);
     }
 }

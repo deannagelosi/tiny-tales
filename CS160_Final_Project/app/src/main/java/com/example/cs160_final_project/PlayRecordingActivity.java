@@ -1,10 +1,9 @@
 package com.example.cs160_final_project;
 
-import android.content.Context;
 import android.content.Intent;
-import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.widget.MediaController;
 import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,15 +20,15 @@ public class PlayRecordingActivity extends AppCompatActivity {
         Intent intent = getIntent();
         videoPath = intent.getExtras().getString("videoPath");
         videoView = findViewById(R.id.videoView);
+        MediaController mediaController = new MediaController(this);
+        mediaController.setAnchorView(videoView);
+        videoView.setMediaController(mediaController);
         playVideo();
-        // TODO: Go back to Listen Activity once video is finished
     }
 
     // Plays recording on the videoView object
     private void playVideo() {
         videoView.setVideoURI(Uri.parse(videoPath));
-        AudioManager am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        am.setStreamVolume(AudioManager.STREAM_MUSIC,20, 0);
         videoView.start();
     }
 }
