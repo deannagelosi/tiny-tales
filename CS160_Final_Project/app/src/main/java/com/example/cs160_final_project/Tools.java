@@ -64,4 +64,19 @@ public class Tools {
         return story;
     }
 
-}
+    static ArrayList<Bitmap> generateRandomStories(ArrayList<Bitmap> userPictures, ArrayList<Bitmap> stockPictures, ArrayList<Set> userLabels, ArrayList<Set> stockLabels, ArrayList<Integer> firstStories) {
+        ArrayList<Integer> duplicates = new ArrayList<>();
+        Random rand = new Random();
+        for (int i = 0; i < 4; i++) {
+            duplicates.add(rand.nextInt(stockPictures.size() + userPictures.size()));
+        }
+        ArrayList<Bitmap> story = new ArrayList<>();
+        ArrayList<Bitmap> combinedPictures = new ArrayList<>(userPictures);
+        combinedPictures.addAll(stockPictures);
+        for (int i = 0; i < duplicates.size(); i++) {
+            story.add(combinedPictures.get(duplicates.get(i)));
+        }
+        return story;
+    }
+
+    }
