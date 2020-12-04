@@ -535,10 +535,12 @@ public class LandingPageActivity extends Activity {
         for (int i = 0; i < userPictures.size(); i++) {
             firstImages.add(i);
         }
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 3; i++) {
             ArrayList<Bitmap> story = Tools.generateStories(userPictures,stockPictures,userLabels,stockLabels, firstImages);
             allStoriesList.add(story);
         }
+        ArrayList<Bitmap> randomStory = Tools.generateRandomStories(userPictures,stockPictures,userLabels,stockLabels, firstImages);
+        allStoriesList.add(randomStory);
         Log.println(VERBOSE, "debug", "New stories: " + allStoriesList.toString());
 
         topLeftImage.setImageBitmap(scaleCenterCrop(allStoriesList.get(0).get(0), 170, 170));
