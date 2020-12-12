@@ -5,11 +5,7 @@ Children between the ages of two and five are actively developing their language
 Our team aims to address this problem space of early childhood language development, storytelling, and creativity with an engaging and easy-to-use app that gives children tools to become creators of personally meaningful stories. 
 
 ## Group Members
-Angel Ibarra
-Deanna Gelosi
-Larry Wu
-Lucy Lou
-Matthew Tang
+Angel Ibarra, Deanna Gelosi, Larry Wu, Lucy Lou, and Matthew Tang
 
 ## Final Video
 https://www.youtube.com/watch?v=GDWZCZ9Lgtc&feature=emb_title
